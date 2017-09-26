@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Денис Пелевин](https://up.htmlacademy.ru/ecmascript/3/user/152586).
-* Наставник: `Неизвестно`.
+* Наставник: `Артем Черкасов`.
 
 ---
 
