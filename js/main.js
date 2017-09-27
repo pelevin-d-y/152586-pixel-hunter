@@ -13,6 +13,12 @@
   const KEY_CODE_RIGHT = `39`;
   let templateNumber = -1;
 
+  const arrayTemplatesId = [`#greeting`, `#rules`, `#game-1`, `#game-2`, `#game-3`, `#stats`]
+  const arrayTemplateElements = arrayTemplatesId.map(function (id) {
+    return document.querySelector(id);
+  });
+
+  console.log(arrayTemplateElements);
   const arrayTemplates = [greetingTemplate, rulesTemplate, gameOneTemplate, gameTwoTemplate, gameThreeTemplate, statsTemplate];
 
   const showWindow = function (number) {
