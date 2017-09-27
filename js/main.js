@@ -1,6 +1,6 @@
-(function () {
-  `use strict`;
+"use strict";
 
+(function () {
   const mainElement = document.querySelector(`.central`);
   const greetingTemplate = document.querySelector(`#greeting`);
   const rulesTemplate = document.querySelector(`#rules`);
