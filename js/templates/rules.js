@@ -1,6 +1,7 @@
 import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game1Template, showGame2Template} from './game-1.js';
+import {introTemplate, showGreetingTemplate} from './intro.js';
 
 const rulesTemplate = getElementFromTemplate(`<header class="header">
 <div class="header__back">
@@ -40,9 +41,14 @@ const rulesTemplate = getElementFromTemplate(`<header class="header">
 const showGame1Template = () => {
   const controlElementRules = document.querySelector(`.rules__button`);
   const inputGame1 = document.querySelector(`.rules__input`);
+  const backButton = document.querySelector(`.back`);
 
-  inputGame1.addEventListener('change', () => {
+  backButton.addEventListener(`click`, () => {
+    showWindow(introTemplate);
+    showGreetingTemplate();
+  });
 
+  inputGame1.addEventListener(`change`, () => {
     if (inputGame1.value) {
       controlElementRules.removeAttribute(`disabled`);
     }

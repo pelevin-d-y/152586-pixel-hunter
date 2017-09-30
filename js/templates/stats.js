@@ -1,4 +1,6 @@
+import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
+import {introTemplate, showGreetingTemplate} from './intro.js';
 
 const statsTemplate = getElementFromTemplate(`<header class="header">
 <div class="header__back">
@@ -119,4 +121,13 @@ const statsTemplate = getElementFromTemplate(`<header class="header">
 </div>
 </footer>`);
 
-export default statsTemplate;
+const showIntroTemplate = () => {
+  const backButton = document.querySelector(`.back`);
+
+  backButton.addEventListener(`click`, () => {
+    showWindow(introTemplate);
+    showGreetingTemplate();
+  });
+};
+
+export {statsTemplate, showIntroTemplate};

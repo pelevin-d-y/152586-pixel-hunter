@@ -1,4 +1,7 @@
+import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
+import {game2Template, showGame3Template} from './game-2.js';
+import {introTemplate, showGreetingTemplate} from './intro.js';
 
 const game1Template = getElementFromTemplate(`<header class="header">
 <div class="header__back">
@@ -67,21 +70,32 @@ const game1Template = getElementFromTemplate(`<header class="header">
 </footer>`);
 
 const showGame2Template = () => {
-  const controlElementGame1 = Array.from(document.querySelectorAll(`.game-1__checkbox`));
-  const runDigit = 0;
+  const controlElementsGame1 = Array.from(document.querySelectorAll(`.game-1__checkbox`));
+  const backButton = document.querySelector(`.back`);
 
-  controlElementGame1.forEach((element) => {
-    element.addEventListener(`change`, () => {
-      console.log(element.hasAttribute(`checked`));
-    });
+  backButton.addEventListener(`click`, () => {
+    showWindow(introTemplate);
+    showGreetingTemplate();
   });
 
-  //const controlElementGame2Second_2 = document.querySelectorAll(`.game-1__second-input`);
+  const checkedCheckbox2 = () => {
+    controlElementsGame1.forEach((checkbox2, index2) => {
+      if (checkbox2.checked && index2 > 1) {
+        showWindow(game2Template);
+        showGame3Template();
+      }
+    });
+  };
 
-
-  // controlElementGame1.addEventListener(`click`, () => {
-  //   showWindow(game1Template);
-  // });
+  controlElementsGame1.forEach((element) => {
+    element.addEventListener(`change`, () => {
+      controlElementsGame1.forEach((checkbox, index) => {
+        if (checkbox.checked && index <= 1) {
+          checkedCheckbox2();
+        }
+      });
+    });
+  });
 };
 
 export {game1Template, showGame2Template};

@@ -1,4 +1,7 @@
+import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
+import {game3Template, showStatsTemplate} from './game-3.js';
+import {introTemplate, showGreetingTemplate} from './intro.js';
 
 const game2Template = getElementFromTemplate(`<header class="header">
 <div class="header__back">
@@ -55,4 +58,21 @@ const game2Template = getElementFromTemplate(`<header class="header">
 </div>
 </footer>`);
 
-export default game2Template;
+const showGame3Template = () => {
+  const controlElementsGame2 = Array.from(document.querySelectorAll(`.game__answer`));
+  const backButton = document.querySelector(`.back`);
+
+  backButton.addEventListener(`click`, () => {
+    showWindow(introTemplate);
+    showGreetingTemplate();
+  });
+
+  controlElementsGame2.forEach((element) => {
+    element.addEventListener(`click`, () => {
+      showWindow(game3Template);
+      showStatsTemplate();
+    });
+  });
+};
+
+export {game2Template, showGame3Template};
