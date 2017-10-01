@@ -48,7 +48,7 @@ const showGame1Template = () => {
     showGreetingTemplate();
   });
 
-  inputGame1.addEventListener(`change`, () => {
+  inputGame1.addEventListener(`input`, () => {
     if (inputGame1.value) {
       controlElementRules.removeAttribute(`disabled`);
     }

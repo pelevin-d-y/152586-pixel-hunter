@@ -70,30 +70,22 @@ const game1Template = getElementFromTemplate(`<header class="header">
 </footer>`);
 
 const showGame2Template = () => {
-  const controlElementsGame1 = Array.from(document.querySelectorAll(`.game-1__checkbox`));
-  const backButton = document.querySelector(`.back`);
+  const images = Array.from(document.querySelectorAll(`.game__option`));
+  const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
 
+  const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
     showWindow(introTemplate);
     showGreetingTemplate();
   });
 
-  const checkedCheckbox2 = () => {
-    controlElementsGame1.forEach((checkbox2, index2) => {
-      if (checkbox2.checked && index2 > 1) {
+  images.forEach((element) => {
+    element.addEventListener(`change`, () => {
+      const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
+      if (isChecked) {
         showWindow(game2Template);
         showGame3Template();
       }
-    });
-  };
-
-  controlElementsGame1.forEach((element) => {
-    element.addEventListener(`change`, () => {
-      controlElementsGame1.forEach((checkbox, index) => {
-        if (checkbox.checked && index <= 1) {
-          checkedCheckbox2();
-        }
-      });
     });
   });
 };
