@@ -1,7 +1,7 @@
-const countPoint = (ansversUser, livesUser) => {
+const countPoint = (answersUser, livesUser) => {
   let points = 0;
 
-  if (ansversUser.length !== 10) {
+  if (answersUser.length !== 10) {
     points = -1;
     return points;
   }
@@ -18,8 +18,8 @@ const countPoint = (ansversUser, livesUser) => {
 
   points = livesUser * 50;
 
-  ansversUser.forEach((element) => {
-    if (element[`ansver`]) {
+  answersUser.forEach((element) => {
+    if (element[`answer`]) {
       points = points + 100;
 
       if (element[`speed`] === `slow`) {

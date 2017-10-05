@@ -6,6 +6,6 @@ import {introTemplate, showGreetingTemplate} from './templates/intro.js';
 showWindow(introTemplate);
 showGreetingTemplate();
 
-countPoint([{ansver: true, speed: `fast`}, {ansver: true, speed: `fast`}, {ansver: true, speed: `slow`}, {ansver: true, speed: `slow`}, {ansver: true, speed: `normal`}, {ansver: true, speed: `normal`}, {ansver: true, speed: `normal`}, {ansver: true, speed: `normal`}, {ansver: true, speed: `normal`}, {ansver: true, speed: `normal`}], 1);
+countPoint([{answer: true, speed: `fast`}, {answer: true, speed: `fast`}, {answer: true, speed: `slow`}, {answer: true, speed: `slow`}, {answer: true, speed: `normal`}, {answer: true, speed: `normal`}, {answer: true, speed: `normal`}, {answer: true, speed: `normal`}, {answer: true, speed: `normal`}, {answer: true, speed: `normal`}], 1);
 
 timer(30);
