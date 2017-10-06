@@ -1,10 +1,11 @@
-const timer = (time) => {
-  return {
-    tick: () => {
+const timer = function(time) {
+    this.tick = () => {
       time = time - 1;
-    },
-    counter: time
-  };
+      this.counter = time;
+      return time;
+    };
+    this.counter = time;
+  }; 
 
 
   // if (time !== 30) {
@@ -25,6 +26,4 @@ const timer = (time) => {
   //   }
   // }, 1000);
   // return timerTick;
-};
-
 export default timer;
