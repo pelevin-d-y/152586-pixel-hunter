@@ -1,23 +1,27 @@
-const Timer = function (time) {
-  this.tick = () => {
-    time = time - 1;
-    this.counter = time;
-    return time;
-  };
+const Timer = function (time, callback) {
 
   this.counter = time;
 
+  this.tick = () => {
+    if (this.counter === 0) {
+      return false;
+    }
+    return this.counter--;
+  };
+
   this.timerRun = setInterval(() => {
     this.tick();
-    console.log(this.counter);
-    this.stop();
+    if (this.counter === 0) {
+      this.stop();
+      if (typeof (callback) === `function`) {
+        callback();
+      }
+    }
   }, 1000);
 
   this.stop = () => {
-    if (this.counter === 25) {
-      console.log(`timer finish`);
-      clearInterval(this.timerRun);
-    }
+    this.counter = 0;
+    clearInterval(this.timerRun);
   };
 };
 
