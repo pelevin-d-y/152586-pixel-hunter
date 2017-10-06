@@ -1,16 +1,12 @@
 import assert from 'assert';
-import timer from './timer.js';
+import Timer from './timer.js';
 
-describe(timer, () => {
+describe(`timer`, () => {
   it(`if timer !== 30`, () => {
-    assert.equal(timer(29), -1);
+    assert.equal(Timer.counter, 30);
   });
 
-  it(`if timer !== 30`, () => {
-    assert.equal(timer(34), -1);
-  });
-
-  it(`if timer tick == 1sec`, () => {
-
-  });
+  // it(`if timer !== 30`, () => {
+  //   assert.equal(Timer(34), false);
+  // });
 });
