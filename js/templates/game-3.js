@@ -3,7 +3,7 @@ import getElementFromTemplate from '../utils.js';
 import {statsTemplate, showIntroTemplate} from './stats.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
 
-const game3Template = getElementFromTemplate(`<header class="header">
+const screenTemplate = `<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -54,7 +54,9 @@ const game3Template = getElementFromTemplate(`<header class="header">
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
+
+const game3Template = getElementFromTemplate(screenTemplate);
 
 const showStatsTemplate = () => {
   const controlElementsGame3 = Array.from(document.querySelectorAll(`.game__option`));

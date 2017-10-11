@@ -2,7 +2,7 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
 
-const statsTemplate = getElementFromTemplate(`<header class="header">
+const screenTemplate = `<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -119,7 +119,9 @@ const statsTemplate = getElementFromTemplate(`<header class="header">
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
+
+const statsTemplate = getElementFromTemplate(screenTemplate);
 
 const showIntroTemplate = () => {
   const backButton = document.querySelector(`.back`);

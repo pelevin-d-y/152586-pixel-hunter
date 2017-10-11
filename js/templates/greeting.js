@@ -2,7 +2,7 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {rulesTemplate, showGame1Template} from './rules.js';
 
-const greetingTemplate = getElementFromTemplate(`<div class="greeting central--blur">
+const screenTemplate = `<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
 <h1 class="greeting__asterisk">*</h1>
 <div class="greeting__challenge">
@@ -24,7 +24,9 @@ const greetingTemplate = getElementFromTemplate(`<div class="greeting central--b
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
+
+const greetingTemplate = getElementFromTemplate(screenTemplate);
 
 const showRulesTemplate = () => {
 
