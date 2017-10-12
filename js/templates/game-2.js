@@ -2,7 +2,7 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game3Template, showStatsTemplate} from './game-3.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import {initialState} from '../data/data.js';
+import {currentState} from '../data/data.js';
 import levels from '../data/data-levels.js';
 
 const headerTemplate = (state) => `<header class="header">
@@ -60,7 +60,7 @@ const bodyTemplate = (data) => `<div class="game">
 </div>
 </footer>`;
 
-const game2Template = getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
+const game2Template = getElementFromTemplate(headerTemplate(currentState) + bodyTemplate(levels));
 
 const showGame3Template = () => {
   const controlElementsGame2 = Array.from(document.querySelectorAll(`.game__answer`));

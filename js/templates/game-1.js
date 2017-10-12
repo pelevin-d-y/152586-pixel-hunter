@@ -2,8 +2,9 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game2Template, showGame3Template} from './game-2.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import {initialState, userAnswers} from '../data/data.js';
+import {initialState, userAnswers, currentState} from '../data/data.js';
 import levels from '../data/data-levels.js';
+import answers from '../data/data-answers.js';
 
 const headerTemplate = (state) => `<header class="header">
 <div class="header__back">
@@ -73,6 +74,15 @@ const bodyTemplate = (data) => `<div class="game">
 
 const game1Template = getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
 
+const getCurrentState = function () {
+  if (userAnswers.level1.answer1 === answers.answer1.true && userAnswers.level1.answer2 === answers.answer4.true) {
+    return currentState;
+  } else {
+    currentState.lives--;
+    return currentState;
+  }
+};
+
 const showGame2Template = () => {
   const images = Array.from(document.querySelectorAll(`.game__option`));
   const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
@@ -84,23 +94,23 @@ const showGame2Template = () => {
   });
 
   images.forEach((element) => {
-    element.addEventListener(`change`, () => {
+    element.addEventListener(`change`, (evt) => {
 
-      controlElementsGame1.forEach((checkbox) => {
-        console.log(checkbox[1]);
-        //console.log(checkbox[1]);
-        userAnswers.level1.answer1 = checkbox[0].value;
-        userAnswers.level1.answer2 = checkbox[1].value;
-      });
+      if (evt.currentTarget === images[0]) {
+        userAnswers.level1.answer1 = evt.target.value;
+      } else {
+        userAnswers.level1.answer2 = evt.target.value;
+      }
 
       const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
       if (isChecked) {
-        console.log(userAnswers);
-        showWindow(game2Template);
+        getCurrentState();         // получаю текущее состояние
+        console.log(currentState); // при ошибке кол-во жизней в currentState в этом модуле изменилось,
+        showWindow(game2Template); // но отрисовывается без изменений
         showGame3Template();
       }
     });
   });
 };
 
-export {game1Template, showGame2Template};
+export {game1Template, showGame2Template, getCurrentState};

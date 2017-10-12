@@ -1,18 +1,5 @@
 import questions from './data-questions.js';
 
-const initialState = {
-  numberLevels: 10,
-  time: 30,
-  lives: 3
-};
-
-let userAnswers = {
-  level1: {
-    answer1: ``,
-    answer2: ``
-  }
-};
-
 const game = {
   name: `pixel hunter`,
   attempt: 1,
@@ -20,4 +7,19 @@ const game = {
   statistics: []
 };
 
-export {initialState, game, userAnswers};
+const initialState = {
+  numberLevels: 10,
+  time: 30,
+  lives: 3
+};
+
+let currentState = initialState;
+
+let userAnswers = {
+  level1: {
+    answer1: ``,
+    answer2: ``  // далее будут объекты level2, level3...
+  }
+};
+
+export {initialState, game, userAnswers, currentState};
