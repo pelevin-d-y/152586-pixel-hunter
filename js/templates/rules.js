@@ -2,7 +2,7 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game1Template, showGame2Template} from './game-1.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import {initialState} from '../data/data.js';
+import {initialState, startGame} from '../data/data.js';
 
 const screenTemplate = `<header class="header">
 <div class="header__back">
@@ -40,6 +40,7 @@ const screenTemplate = `<header class="header">
 </footer>`;
 
 const rulesTemplate = getElementFromTemplate(screenTemplate);
+const game = startGame(initialState);
 
 const showGame1Template = () => {
   const controlElementRules = document.querySelector(`.rules__button`);
@@ -58,8 +59,8 @@ const showGame1Template = () => {
   });
 
   controlElementRules.addEventListener(`click`, () => {
-    showWindow(game1Template);
-    showGame2Template();
+    showWindow(game1Template());
+    showGame2Template(game);
   });
 };
 

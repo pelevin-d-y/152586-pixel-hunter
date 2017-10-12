@@ -60,7 +60,9 @@ const bodyTemplate = (data) => `<div class="game">
 </div>
 </footer>`;
 
-const game2Template = getElementFromTemplate(headerTemplate(currentState) + bodyTemplate(levels));
+function game2Template(game) {
+  return getElementFromTemplate(headerTemplate(game) + bodyTemplate(levels));
+}
 
 const showGame3Template = () => {
   const controlElementsGame2 = Array.from(document.querySelectorAll(`.game__answer`));

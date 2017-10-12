@@ -72,18 +72,21 @@ const bodyTemplate = (data) => `<div class="game">
 </div>
 </footer>`;
 
-const game1Template = getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
+function game1Template() {
+  return getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
+}
 
-const getCurrentState = function () {
+const getCurrentState = function (game) {
   if (userAnswers.level1.answer1 === answers.answer1.true && userAnswers.level1.answer2 === answers.answer4.true) {
-    return currentState;
+    return game;
   } else {
-    currentState.lives--;
-    return currentState;
+    game.lives--;
+    return game;
   }
 };
 
-const showGame2Template = () => {
+const showGame2Template = (game) => {
+  console.log(game2Template(game));
   const images = Array.from(document.querySelectorAll(`.game__option`));
   const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
 
@@ -104,10 +107,9 @@ const showGame2Template = () => {
 
       const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
       if (isChecked) {
-        getCurrentState();         // получаю текущее состояние
-        console.log(currentState); // при ошибке кол-во жизней в currentState в этом модуле изменилось,
-        showWindow(game2Template); // но отрисовывается без изменений
-        showGame3Template();
+        getCurrentState(game);
+        showWindow(game2Template(game));
+        showGame3Template(game);
       }
     });
   });
