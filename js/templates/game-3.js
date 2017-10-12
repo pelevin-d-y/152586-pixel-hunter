@@ -2,32 +2,34 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {statsTemplate, showIntroTemplate} from './stats.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
+import {initialState} from '../data/data.js';
+import levels from '../data/data-levels.js';
 
-const screenTemplate = `<header class="header">
+const headerTemplate = (state) => `<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
     <img src="img/logo_small.svg" width="101" height="44">
   </button>
 </div>
-<h1 class="game__timer">NN</h1>
+<h1 class="game__timer">${state.time}</h1>
 <div class="game__lives">
-  <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
+${new Array(3 - state.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
 </div>
-</header>
-<div class="game">
-<p class="game__task">Найдите рисунок среди изображений</p>
+</header>`;
+
+const bodyTemplate = (data) => `<div class="game">
+<p class="game__task">${levels.level3.question}</p>
 <form class="game__content  game__content--triple">
   <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+    <img src="${data.level3.questionImageUrl1}" alt="Option 1" width="304" height="455">
   </div>
   <div class="game__option  game__option--selected">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+    <img src="${data.level3.questionImageUrl2}" alt="Option 1" width="304" height="455">
   </div>
   <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+    <img src="${data.level3.questionImageUrl3}" alt="Option 1" width="304" height="455">
   </div>
 </form>
 <div class="stats">
@@ -56,7 +58,7 @@ const screenTemplate = `<header class="header">
 </div>
 </footer>`;
 
-const game3Template = getElementFromTemplate(screenTemplate);
+const game3Template = getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
 
 const showStatsTemplate = () => {
   const controlElementsGame3 = Array.from(document.querySelectorAll(`.game__option`));

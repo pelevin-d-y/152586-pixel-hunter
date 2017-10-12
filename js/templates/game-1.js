@@ -2,7 +2,8 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game2Template, showGame3Template} from './game-2.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import initialState from '../data/data.js';
+import {initialState, userAnswers} from '../data/data.js';
+import levels from '../data/data-levels.js';
 
 const headerTemplate = (state) => `<header class="header">
 <div class="header__back">
@@ -18,11 +19,11 @@ ${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart
 </div>
 </header>`;
 
-const bodyTemplate = `<div class="game">
-<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+const bodyTemplate = (data) => `<div class="game">
+<p class="game__task">${data.level1.question}</p>
 <form class="game__content">
   <div class="game__option">
-    <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+    <img src="${data.level1.questionImageUrl1}" alt="Option 1" width="468" height="458">
     <label class="game__answer game__answer--photo">
       <input class="game-1__checkbox" name="question1" type="radio" value="photo">
       <span>Фото</span>
@@ -33,7 +34,7 @@ const bodyTemplate = `<div class="game">
     </label>
   </div>
   <div class="game__option">
-    <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+    <img src="${data.level1.questionImageUrl2}" alt="Option 2" width="468" height="458">
     <label class="game__answer  game__answer--photo">
       <input class="game-1__checkbox" name="question2" type="radio" value="photo">
       <span>Фото</span>
@@ -70,7 +71,7 @@ const bodyTemplate = `<div class="game">
 </div>
 </footer>`;
 
-const game1Template = getElementFromTemplate(headerTemplate(initialState) + bodyTemplate);
+const game1Template = getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
 
 const showGame2Template = () => {
   const images = Array.from(document.querySelectorAll(`.game__option`));
@@ -84,8 +85,17 @@ const showGame2Template = () => {
 
   images.forEach((element) => {
     element.addEventListener(`change`, () => {
+
+      controlElementsGame1.forEach((checkbox) => {
+        console.log(checkbox[1]);
+        //console.log(checkbox[1]);
+        userAnswers.level1.answer1 = checkbox[0].value;
+        userAnswers.level1.answer2 = checkbox[1].value;
+      });
+
       const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
       if (isChecked) {
+        console.log(userAnswers);
         showWindow(game2Template);
         showGame3Template();
       }
