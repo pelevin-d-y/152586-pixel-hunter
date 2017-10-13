@@ -3,7 +3,7 @@ import getElementFromTemplate from '../utils.js';
 import {statsTemplate, showIntroTemplate} from './stats.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
 import levels from '../data/data-levels.js';
-import headerTemplate from './header.js';
+import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
 
 const bodyTemplate = (data) => `<div class="game">
@@ -36,7 +36,7 @@ const bodyTemplate = (data) => `<div class="game">
 </div>`;
 
 function game3Template(game) {
-  return getElementFromTemplate(headerTemplate(game) + bodyTemplate(levels) + footerTemplat);
+  return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(levels) + footerTemplat);
 }
 
 const showStatsTemplate = () => {

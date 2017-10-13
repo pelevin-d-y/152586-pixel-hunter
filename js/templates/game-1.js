@@ -5,21 +5,21 @@ import {introTemplate, showGreetingTemplate} from './intro.js';
 import {initialState} from '../data/data.js';
 import levels from '../data/data-levels.js';
 import answers from '../data/data-answers.js';
-import headerTemplate from './header.js';
+import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
 
 const bodyTemplate = (data) => `<div class="game">
 <p class="game__task">${data.level1.question.text}</p>
 <form class="game__content">
-${levels.level1.question.answers.map((answer) =>
+${levels.level1.question.answers.map((answer, i) =>
     `<div class="game__option">
-    <img src="${answer.url}" alt="Option 1" width="468" height="458">
+    <img src="${answer.url}" alt="Option ${i + 1}" width="468" height="458">
     <label class="game__answer game__answer--photo">
-      <input class="game-1__checkbox" name="question${data.level1.question.questionNumber}" type="radio" value="photo">
+      <input class="game-1__checkbox" name="question${i + 1}" type="radio" value="photo">
       <span>Фото</span>
     </label>
     <label class="game__answer game__answer--paint">
-      <input class="game-1__checkbox" name="question1" type="radio" value="paint">
+      <input class="game-1__checkbox" name="question${i + 1}" type="radio" value="paint">
       <span>Рисунок</span>
     </label>
   </div>`
@@ -43,8 +43,7 @@ ${levels.level1.question.answers.map((answer) =>
 </div>`;
 
 function game1Template() {
-  console.log(bodyTemplate(levels));
-  return getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels) + footerTemplat);
+  return getElementFromTemplate(headerTemplate(initialState, headerBackTemplate) + bodyTemplate(levels) + footerTemplat);
 }
 
 const getCurrentStateGame1 = function (game) {
