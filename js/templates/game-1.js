@@ -2,49 +2,29 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game2Template, showGame3Template} from './game-2.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import {initialState, userAnswers, currentState} from '../data/data.js';
+import {initialState} from '../data/data.js';
 import levels from '../data/data-levels.js';
 import answers from '../data/data-answers.js';
-
-const headerTemplate = (state) => `<header class="header">
-<div class="header__back">
-  <button class="back">
-    <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-    <img src="img/logo_small.svg" width="101" height="44">
-  </button>
-</div>
-<h1 class="game__timer">${state.time}</h1>
-<div class="game__lives">
-${new Array(3 - state.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
-${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
-</div>
-</header>`;
+import headerTemplate from './header.js';
+import footerTemplat from './footer.js';
 
 const bodyTemplate = (data) => `<div class="game">
-<p class="game__task">${data.level1.question}</p>
+<p class="game__task">${data.level1.question.text}</p>
 <form class="game__content">
-  <div class="game__option">
-    <img src="${data.level1.questionImageUrl1}" alt="Option 1" width="468" height="458">
+${levels.level1.question.answers.map((answer) =>
+    `<div class="game__option">
+    <img src="${answer.url}" alt="Option 1" width="468" height="458">
     <label class="game__answer game__answer--photo">
-      <input class="game-1__checkbox" name="question1" type="radio" value="photo">
+      <input class="game-1__checkbox" name="question${data.level1.question.questionNumber}" type="radio" value="photo">
       <span>Фото</span>
     </label>
     <label class="game__answer game__answer--paint">
       <input class="game-1__checkbox" name="question1" type="radio" value="paint">
       <span>Рисунок</span>
     </label>
-  </div>
-  <div class="game__option">
-    <img src="${data.level1.questionImageUrl2}" alt="Option 2" width="468" height="458">
-    <label class="game__answer  game__answer--photo">
-      <input class="game-1__checkbox" name="question2" type="radio" value="photo">
-      <span>Фото</span>
-    </label>
-    <label class="game__answer  game__answer--paint">
-      <input class="game-1__checkbox" name="question2" type="radio" value="paint">
-      <span>Рисунок</span>
-    </label>
-  </div>
+  </div>`
+  ).join(``)
+}
 </form>
 <div class="stats">
   <ul class="stats">
@@ -60,24 +40,15 @@ const bodyTemplate = (data) => `<div class="game">
     <li class="stats__result stats__result--unknown"></li>
   </ul>
 </div>
-</div>
-<footer class="footer">
-<a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-<span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-<div class="footer__social-links">
-  <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-  <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-  <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-  <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-</div>
-</footer>`;
+</div>`;
 
 function game1Template() {
-  return getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels));
+  console.log(bodyTemplate(levels));
+  return getElementFromTemplate(headerTemplate(initialState) + bodyTemplate(levels) + footerTemplat);
 }
 
-const getCurrentState = function (game) {
-  if (userAnswers.level1.answer1 === answers.answer1.true && userAnswers.level1.answer2 === answers.answer4.true) {
+const getCurrentStateGame1 = function (game) {
+  if (game.userAnswers.level1.answer1 === answers.answer1.true && game.userAnswers.level1.answer2 === answers.answer4.true) {
     return game;
   } else {
     game.lives--;
@@ -86,7 +57,6 @@ const getCurrentState = function (game) {
 };
 
 const showGame2Template = (game) => {
-  console.log(game2Template(game));
   const images = Array.from(document.querySelectorAll(`.game__option`));
   const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
 
@@ -98,16 +68,15 @@ const showGame2Template = (game) => {
 
   images.forEach((element) => {
     element.addEventListener(`change`, (evt) => {
-
       if (evt.currentTarget === images[0]) {
-        userAnswers.level1.answer1 = evt.target.value;
+        game.userAnswers.level1.answer1 = evt.target.value;
       } else {
-        userAnswers.level1.answer2 = evt.target.value;
+        game.userAnswers.level1.answer2 = evt.target.value;
       }
 
       const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
       if (isChecked) {
-        getCurrentState(game);
+        getCurrentStateGame1(game);
         showWindow(game2Template(game));
         showGame3Template(game);
       }
@@ -115,4 +84,4 @@ const showGame2Template = (game) => {
   });
 };
 
-export {game1Template, showGame2Template, getCurrentState};
+export {game1Template, showGame2Template};

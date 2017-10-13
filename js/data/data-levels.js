@@ -3,9 +3,7 @@ import questions from './data-questions.js';
 
 const levels = {
   level1: {
-    question: questions.question1.text,
-    questionImageUrl1: answers.answer1.url,
-    questionImageUrl2: answers.answer4.url,
+    question: questions.question1
   },
 
   level2: {

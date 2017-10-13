@@ -8,13 +8,6 @@ const initialState = {
 
 let currentState = initialState;
 
-let userAnswers = {
-  level1: {
-    answer1: ``,
-    answer2: ``
-  }
-};
-
 function startGame(state) {
   return {
     name: `pixel hunter`,
@@ -22,8 +15,17 @@ function startGame(state) {
     questions: [questions.question1, questions.question2, questions.question3],
     lives: state.lives,
     time: initialState.time,
+    userAnswers: {
+      level1: {
+        answer1: ``,
+        answer2: ``
+      },
+      level2: {
+        answer: ``
+      }
+    },
     statistics: []
   };
 }
 
-export {initialState, startGame, userAnswers, currentState};
+export {initialState, startGame, currentState};
