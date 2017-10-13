@@ -8,19 +8,23 @@ import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
 
 const bodyTemplate = (data) => `<div class="game">
-<p class="game__task">${data.level2.question}</p>
+<p class="game__task">${data.level2.question.text}</p>
 <form class="game__content  game__content--wide">
-  <div class="game__option">
-    <img src="${data.level2.questionImageUrl}" alt="Option 1" width="705" height="455">
-    <label class="game__answer  game__answer--photo">
-      <input name="question1" type="radio" value="photo">
-      <span>Фото</span>
-    </label>
-    <label class="game__answer  game__answer--wide  game__answer--paint">
-      <input name="question1" type="radio" value="paint">
-      <span>Рисунок</span>
-    </label>
-  </div>
+${levels.level2.question.answers.map((answer) =>
+    `<div class="game__option">
+      <img src="${answer.url}" alt="Option 1" width="705" height="455">
+      <label class="game__answer  game__answer--photo">
+        <input name="question1" type="radio" value="photo">
+        <span>Фото</span>
+      </label>
+      <label class="game__answer  game__answer--wide  game__answer--paint">
+        <input name="question1" type="radio" value="paint">
+        <span>Рисунок</span>
+      </label>
+    </div>`
+  ).join(``)
+}
+
 </form>
 <div class="stats">
   <ul class="stats">
@@ -43,7 +47,7 @@ function game2Template(game) {
 }
 
 const getCurrentStateGame2 = function (game) {
-  if (game.userAnswers.level2.answer === answers.answer2.true) {
+  if (game.userAnswers.level2.answer === levels.level2.true) { // цикл вот тут исправить
     return game;
   } else {
     game.lives--;
@@ -63,9 +67,10 @@ const showGame3Template = (game) => {
   controlElementsGame2.forEach((element) => {
     element.addEventListener(`change`, (evt) => {
       game.userAnswers.level2.answer = evt.target.value;
+      console.log(game.userAnswers)
       getCurrentStateGame2(game);
       showWindow(game3Template(game));
-      showStatsTemplate();
+      showStatsTemplate(game);
     });
   });
 };

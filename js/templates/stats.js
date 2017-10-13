@@ -4,7 +4,7 @@ import {introTemplate, showGreetingTemplate} from './intro.js';
 import footerTemplat from './footer.js';
 import {headerBackTemplate} from './header.js';
 
-const screenTemplate = `<header class="header">
+const screenTemplate = () => `<header class="header">
 ${headerBackTemplate}
 </header>
 <div class="result">
@@ -108,7 +108,9 @@ ${headerBackTemplate}
 </table>
 </div>`;
 
-const statsTemplate = getElementFromTemplate(screenTemplate + footerTemplat);
+function statsTemplate() {
+  return getElementFromTemplate(screenTemplate() + footerTemplat);
+}
 
 const showIntroTemplate = () => {
   const backButton = document.querySelector(`.back`);

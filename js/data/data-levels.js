@@ -1,4 +1,3 @@
-import answers from './data-answers.js';
 import questions from './data-questions.js';
 
 const levels = {
@@ -7,57 +6,39 @@ const levels = {
   },
 
   level2: {
-    question: questions.question2.text,
-    questionImageUrl: answers.answer2.url,
+    question: questions.question2
   },
 
   level3: {
-    question: questions.question3.text,
-    questionImageUrl1: answers.answer3.url,
-    questionImageUrl2: answers.answer5.url,
-    questionImageUrl3: answers.answer6.url,
+    question: questions.question3
   },
 
   level4: {
-    question: questions.question1.text,
-    questionImageUrl1: answers.answer1.url,
-    questionImageUrl2: answers.answer4.url,
+    question: questions.question1
   },
 
   level5: {
-    question: questions.question2.text,
-    questionImageUrl: answers.answer2.url,
+    question: questions.question2
   },
 
   level6: {
-    question: questions.question3.text,
-    questionImageUrll: answers.answer3.url,
-    questionImageUrl2: answers.answer5.url,
-    questionImageUrl3: answers.answer6.url,
+    question: questions.question3
   },
 
   level7: {
-    question: questions.question1.text,
-    questionImageUrl1: answers.answer1.url,
-    questionImageUrl2: answers.answer4.url,
+    question: questions.question1
   },
 
   level8: {
-    question: questions.question2.text,
-    questionImageUrl: answers.answer2.url,
+    question: questions.question2
   },
 
   level9: {
-    question: questions.question3.text,
-    questionImageUrll: answers.answer3.url,
-    questionImageUrl2: answers.answer5.url,
-    questionImageUrl3: answers.answer6.url,
+    question: questions.question3
   },
 
   level10: {
-    question: questions.question1.text,
-    questionImageUrl1: answers.answer1.url,
-    questionImageUrl2: answers.answer4.url,
+    question: questions.question1
   }
 };
 

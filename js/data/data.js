@@ -22,7 +22,10 @@ function startGame(state) {
       },
       level2: {
         answer: ``
-      }
+      },
+      level3: {
+        answer: ``
+      },
     },
     statistics: []
   };

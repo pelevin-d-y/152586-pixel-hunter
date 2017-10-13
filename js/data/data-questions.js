@@ -10,13 +10,13 @@ const questions = {
   question2: {
     id: 1,
     text: `Угадай, фото или рисунок?`,
-    answers: [answers.answer2],
+    answers: [answers.answer5],
   },
 
   question3: {
     id: 2,
     text: `Найдите рисунок среди изображений`,
-    answers: [answers.answer3, answers.answer5, answers.answer6],
+    answers: [answers.answer2, answers.answer3, answers.answer6],
   },
 };
 
