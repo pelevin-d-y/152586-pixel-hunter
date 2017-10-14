@@ -5,7 +5,7 @@ import {introTemplate, showGreetingTemplate} from './intro.js';
 import levels from '../data/data-levels.js';
 import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
-import answers from '../data/data-answers.js';
+import {getCurrentStateGame3, getCurrentLevel} from '../current-state.js';
 
 const bodyTemplate = (data) => `<div class="game">
 <p class="game__task">${data.level3.question.text}</p>
@@ -37,21 +37,10 @@ function game3Template(game) {
   return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(levels) + footerTemplat);
 }
 
-const getCurrentStateGame3 = function (game, src) {
-  const answersKeys = Object.keys(answers);
-  for (let answer of answersKeys) {
-    if (answers[answer].url === src || answers[answer].true === `paint`) {
-      console.log(game);
-      return game;
-    } else {
-      console.log(game);
-      return game.lives--;
-    }
-  }
-  //game.userAnswers.level3.answer
-};
-
 const showStatsTemplate = (game) => {
+  getCurrentLevel(game);
+  const currentLevel = game.currentLevel;
+
   const controlElementsGame3 = Array.from(document.querySelectorAll(`.game__option`));
 
   const backButton = document.querySelector(`.back`);
@@ -65,7 +54,7 @@ const showStatsTemplate = (game) => {
     element.addEventListener(`click`, (evt) => {
 
       const srcCurrentImage = evt.target.children[0].getAttribute(`src`);
-      game.userAnswers.level3.answer = srcCurrentImage;
+      game.userAnswers[currentLevel].answer = srcCurrentImage;
       getCurrentStateGame3(game, srcCurrentImage);
 
       showWindow(statsTemplate(game));

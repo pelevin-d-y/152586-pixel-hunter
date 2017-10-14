@@ -4,9 +4,9 @@ import {game2Template, showGame3Template} from './game-2.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
 import {initialState} from '../data/data.js';
 import levels from '../data/data-levels.js';
-import answers from '../data/data-answers.js';
 import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
+import {getCurrentStateGame1, getCurrentLevel} from '../current-state.js';
 
 const bodyTemplate = (data) => `<div class="game">
 <p class="game__task">${data.level1.question.text}</p>
@@ -46,16 +46,11 @@ function game1Template() {
   return getElementFromTemplate(headerTemplate(initialState, headerBackTemplate) + bodyTemplate(levels) + footerTemplat);
 }
 
-const getCurrentStateGame1 = function (game) {
-  if (game.userAnswers.level1.answer1 === answers.answer1.true && game.userAnswers.level1.answer2 === answers.answer4.true) {
-    return game;
-  } else {
-    game.lives--;
-    return game;
-  }
-};
-
 const showGame2Template = (game) => {
+
+  getCurrentLevel(game);
+  const currentLevel = game.currentLevel;
+
   const images = Array.from(document.querySelectorAll(`.game__option`));
   const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
 
@@ -68,9 +63,9 @@ const showGame2Template = (game) => {
   images.forEach((element) => {
     element.addEventListener(`change`, (evt) => {
       if (evt.currentTarget === images[0]) {
-        game.userAnswers.level1.answer1 = evt.target.value;
+        game.userAnswers[currentLevel].answer1 = evt.target.value;
       } else {
-        game.userAnswers.level1.answer2 = evt.target.value;
+        game.userAnswers[currentLevel].answer2 = evt.target.value;
       }
 
       const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);

@@ -15,6 +15,8 @@ function startGame(state) {
     questions: [questions.question1, questions.question2, questions.question3],
     lives: state.lives,
     time: initialState.time,
+    levels: [`level1`, `level2`, `level3`, `level4`, `level5`, `level6`, `level7`, `level8`, `level9`, `level10`],
+    currentLevel: ``,
     userAnswers: {
       level1: {
         answer1: ``,
