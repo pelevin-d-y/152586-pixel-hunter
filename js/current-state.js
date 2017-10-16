@@ -8,6 +8,8 @@ const getCurrentLevel = (game) => {
 
 const getCurrentStateGame1 = (game) => {
   const currentLevel = game.currentLevel;
+  game.statistics[currentLevel] = `<li class="stats__result stats__result--correct">`;
+
   for (let i = 0; levels[currentLevel].question.answers.length > i; i++) {
     const gameAnswersKeys = Object.keys(game.userAnswers[currentLevel]);
     let currentAnswerKey = gameAnswersKeys[i];
@@ -24,6 +26,8 @@ const getCurrentStateGame1 = (game) => {
 };
 
 const getCurrentStateGame3 = (game, src) => {
+  const currentLevel = game.currentLevel;
+  game.statistics[currentLevel] = `<li class="stats__result stats__result--correct">`;
   const answersKeys = Object.keys(answers);
   for (let answer of answersKeys) {
     if (answers[answer].url === src) {

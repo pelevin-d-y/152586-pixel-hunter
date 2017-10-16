@@ -15,6 +15,7 @@ function startGame(state) {
     questions: [questions.question1, questions.question2, questions.question3],
     lives: state.lives,
     time: initialState.time,
+    numberLevels: initialState.numberLevels,
     levels: [`level1`, `level2`, `level3`, `level4`, `level5`, `level6`, `level7`, `level8`, `level9`, `level10`],
     currentLevel: ``,
     userAnswers: {
@@ -28,8 +29,43 @@ function startGame(state) {
       level3: {
         answer: ``
       },
+      level4: {
+        answer1: ``,
+        answer2: ``
+      },
+      level5: {
+        answer: ``
+      },
+      level6: {
+        answer: ``
+      },
+      level7: {
+        answer1: ``,
+        answer2: ``
+      },
+      level8: {
+        answer: ``
+      },
+      level9: {
+        answer: ``
+      },
+      level10: {
+        answer1: ``,
+        answer2: ``
+      }
     },
-    statistics: []
+    statistics: {
+      level1: `<li class="stats__result stats__result--wrong"></li>`,
+      level2: `<li class="stats__result stats__result--slow"><li>`,
+      level3: `<li class="stats__result stats__result--fast"><li>`,
+      level4: `<li class="stats__result stats__result--correct"></li>`,
+      level5: `<li class="stats__result stats__result--unknown"></li>`,
+      level6: `<li class="stats__result stats__result--unknown"></li>`,
+      level7: `<li class="stats__result stats__result--unknown"></li>`,
+      level8: `<li class="stats__result stats__result--unknown"></li>`,
+      level9: `<li class="stats__result stats__result--unknown"></li>`,
+      level10: `<li class="stats__result stats__result--unknown"></li>`
+    }
   };
 }
 

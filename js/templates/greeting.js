@@ -1,6 +1,7 @@
 import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {rulesTemplate, showGame1Template} from './rules.js';
+import {initialState, startGame} from '../data/data.js';
 
 const screenTemplate = `<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -26,6 +27,7 @@ const screenTemplate = `<div class="greeting central--blur">
 </div>
 </footer>`;
 
+const game = startGame(initialState);
 const greetingTemplate = getElementFromTemplate(screenTemplate);
 
 const showRulesTemplate = () => {
@@ -33,8 +35,8 @@ const showRulesTemplate = () => {
   const controlElementGreeting = document.querySelector(`.greeting__continue`);
 
   controlElementGreeting.addEventListener(`click`, () => {
-    showWindow(rulesTemplate);
-    showGame1Template();
+    showWindow(rulesTemplate(game));
+    showGame1Template(game);
   });
 };
 

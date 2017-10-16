@@ -2,14 +2,14 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game2Template, showGame3Template} from './game-2.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import {initialState} from '../data/data.js';
 import levels from '../data/data-levels.js';
 import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
 import {getCurrentStateGame1, getCurrentLevel} from '../current-state.js';
+import {statsTemplate} from './stats.js';
 
 const bodyTemplate = (data) => `<div class="game">
-<p class="game__task">${data.level1.question.text}</p>
+<p class="game__task">${data.questions[0].text}</p>
 <form class="game__content">
 ${levels.level1.question.answers.map((answer, i) =>
     `<div class="game__option">
@@ -28,22 +28,17 @@ ${levels.level1.question.answers.map((answer, i) =>
 </form>
 <div class="stats">
   <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
+${
+  Object.keys(data.statistics).map((element) => {
+    return data.statistics[element];
+  }).join(``)
+}
   </ul>
 </div>
 </div>`;
 
-function game1Template() {
-  return getElementFromTemplate(headerTemplate(initialState, headerBackTemplate) + bodyTemplate(levels) + footerTemplat);
+function game1Template(game) {
+  return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(game) + footerTemplat);
 }
 
 const showGame2Template = (game) => {
@@ -71,6 +66,17 @@ const showGame2Template = (game) => {
       const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
       if (isChecked) {
         getCurrentStateGame1(game);
+
+        if (game.lives < 0) {
+          showWindow(statsTemplate(game));
+          return;
+        }
+
+        if (game.levels.length === 0) {
+          showWindow(statsTemplate(game));
+          return;
+        }
+
         showWindow(game2Template(game));
         showGame3Template(game);
       }

@@ -4,7 +4,7 @@ import {introTemplate, showGreetingTemplate} from './intro.js';
 import footerTemplat from './footer.js';
 import {headerBackTemplate} from './header.js';
 
-const screenTemplate = () => `<header class="header">
+const screenTemplate = (data) => `<header class="header">
 ${headerBackTemplate}
 </header>
 <div class="result">
@@ -14,16 +14,11 @@ ${headerBackTemplate}
     <td class="result__number">1.</td>
     <td colspan="2">
       <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
+      ${
+  Object.keys(data.statistics).map((element) => {
+    return data.statistics[element];
+  }).join(``)
+}
       </ul>
     </td>
     <td class="result__points">×&nbsp;100</td>
@@ -59,16 +54,11 @@ ${headerBackTemplate}
     <td class="result__number">2.</td>
     <td>
       <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--wrong"></li>
+${
+  Object.keys(data.statistics).map((element) => {
+    return data.statistics[element];
+  }).join(``)
+}
       </ul>
     </td>
     <td class="result__total"></td>
@@ -80,16 +70,11 @@ ${headerBackTemplate}
     <td class="result__number">3.</td>
     <td colspan="2">
       <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
+${
+  Object.keys(data.statistics).map((element) => {
+    return data.statistics[element];
+  }).join(``)
+}
       </ul>
     </td>
     <td class="result__points">×&nbsp;100</td>
@@ -108,8 +93,8 @@ ${headerBackTemplate}
 </table>
 </div>`;
 
-function statsTemplate() {
-  return getElementFromTemplate(screenTemplate() + footerTemplat);
+function statsTemplate(game) {
+  return getElementFromTemplate(screenTemplate(game) + footerTemplat);
 }
 
 const showIntroTemplate = () => {
