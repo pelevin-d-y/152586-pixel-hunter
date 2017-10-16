@@ -55,16 +55,22 @@ function startGame(state) {
       }
     },
     statistics: {
-      level1: `<li class="stats__result stats__result--wrong"></li>`,
-      level2: `<li class="stats__result stats__result--slow"><li>`,
-      level3: `<li class="stats__result stats__result--fast"><li>`,
-      level4: `<li class="stats__result stats__result--correct"></li>`,
+      level1: `<li class="stats__result stats__result--unknown"></li>`,
+      level2: `<li class="stats__result stats__result--unknown"></li>`,
+      level3: `<li class="stats__result stats__result--unknown"></li>`,
+      level4: `<li class="stats__result stats__result--unknown"></li>`,
       level5: `<li class="stats__result stats__result--unknown"></li>`,
       level6: `<li class="stats__result stats__result--unknown"></li>`,
       level7: `<li class="stats__result stats__result--unknown"></li>`,
       level8: `<li class="stats__result stats__result--unknown"></li>`,
       level9: `<li class="stats__result stats__result--unknown"></li>`,
       level10: `<li class="stats__result stats__result--unknown"></li>`
+    },
+    timeAnswer: {
+      slowAnswer: `<li class="stats__result stats__result--slow"><li>`,
+      fastAnswer: `<li class="stats__result stats__result--fast"><li>`,
+      normalAnswer: `<li class="stats__result stats__result--correct"></li>`,
+      wrongAnswer: `<li class="stats__result stats__result--wrong"></li>`
     }
   };
 }
