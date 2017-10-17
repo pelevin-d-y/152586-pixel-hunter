@@ -43,8 +43,9 @@ function game1Template(game) {
 
 const showGame2Template = (game) => {
 
-  getCurrentLevel(game);
+  game.currentLevel = getCurrentLevel(game);
   const currentLevel = game.currentLevel;
+  game.userAnswers[currentLevel] = {};
 
   const images = Array.from(document.querySelectorAll(`.game__option`));
   const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
@@ -73,7 +74,7 @@ const showGame2Template = (game) => {
           return;
         }
 
-        if (game.levels.length === 0) {
+        if (game.currentLevel === `level10`) {
           showWindow(statsTemplate(game));
           showIntroTemplate();
           return;

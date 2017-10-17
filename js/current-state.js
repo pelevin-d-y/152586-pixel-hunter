@@ -7,13 +7,16 @@ const currentStatistics = (game, timeAnswer) => {
 };
 
 const getCurrentLevel = (game) => {
-  game.currentLevel = game.levels[0];
-  game.levels.shift();
+  const index = game.levels.indexOf(game.currentLevel); // получили индекс следующего уровня
+  console.log(index + 1);
+  return game.levels.length > index ? game.levels[index + 1] : null; // проверили на существование и вернули
+  //game.currentLevel = game.levels[0];
+  //game.levels.shift();
 };
 
 const getCurrentStateGame1 = (game) => {
   const currentLevel = game.currentLevel;
-
+  console.log()
   for (let i = 0; levels[currentLevel].question.answers.length > i; i++) {
     const gameAnswersKeys = Object.keys(game.userAnswers[currentLevel]);
     let currentAnswerKey = gameAnswersKeys[i];
@@ -22,7 +25,6 @@ const getCurrentStateGame1 = (game) => {
 
     if (currentUserAnswerLevel[currentAnswerKey] === levels[currentLevel].question.answers[i].true) {
       currentStatistics(game, `normalAnswer`);
-      game = game;
     } else {
       currentStatistics(game, `wrongAnswer`);
       game.lives--;
@@ -37,7 +39,6 @@ const getCurrentStateGame3 = (game, src) => {
     if (answers[answer].url === src) {
       if (answers[answer].true === `paint`) {
         currentStatistics(game, `normalAnswer`);
-        game = game;
         break;
       } else {
         currentStatistics(game, `wrongAnswer`);

@@ -42,8 +42,9 @@ function game2Template(game) {
 }
 
 const showGame3Template = (game) => {
-  getCurrentLevel(game);
+  game.currentLevel = getCurrentLevel(game);
   const currentLevel = game.currentLevel;
+  game.userAnswers[currentLevel] = {};
 
   const controlElementsGame2 = Array.from(document.querySelectorAll(`.game__answer`));
   const backButton = document.querySelector(`.back`);

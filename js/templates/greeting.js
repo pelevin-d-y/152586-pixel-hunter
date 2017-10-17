@@ -2,6 +2,7 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {rulesTemplate, showGame1Template} from './rules.js';
 import {initialState, startGame} from '../data/data.js';
+import levels from '../data/data-levels.js';
 
 const screenTemplate = `<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -28,7 +29,13 @@ const screenTemplate = `<div class="greeting central--blur">
 </footer>`;
 
 const game = startGame(initialState);
+const keysLevels = Object.keys(levels);
+for (let key of keysLevels) {
+  game.statistics[key] = `unknown`;
+}
+
 const greetingTemplate = getElementFromTemplate(screenTemplate);
+
 
 const showRulesTemplate = () => {
 

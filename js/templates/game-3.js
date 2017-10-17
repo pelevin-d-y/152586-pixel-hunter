@@ -33,8 +33,9 @@ function game3Template(game) {
 }
 
 const showStatsTemplate = (game) => {
-  getCurrentLevel(game);
+  game.currentLevel = getCurrentLevel(game);
   const currentLevel = game.currentLevel;
+  game.userAnswers[currentLevel] = {};
 
   const controlElementsGame3 = Array.from(document.querySelectorAll(`.game__option`));
 
