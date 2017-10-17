@@ -1,6 +1,6 @@
 import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
-import {statsTemplate} from './stats.js';
+import {statsTemplate, showIntroTemplate} from './stats.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
 import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
@@ -19,9 +19,9 @@ ${data.questions[2].answers.map((answer) =>
  </form>
 <div class="stats">
   <ul class="stats">
-  ${
+${
   Object.keys(data.statistics).map((element) => {
-    return data.statistics[element];
+    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
   }).join(``)
 }
   </ul>
@@ -54,11 +54,13 @@ const showStatsTemplate = (game) => {
 
       if (game.lives < 0) {
         showWindow(statsTemplate(game));
+        showIntroTemplate();
         return;
       }
 
       if (game.levels.length === 0) {
         showWindow(statsTemplate(game));
+        showIntroTemplate();
         return;
       }
 

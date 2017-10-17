@@ -1,16 +1,13 @@
 import levels from './data/data-levels.js';
 import answers from './data/data-answers.js';
 
-const currentStatistics = (game) => {
+const currentStatistics = (game, timeAnswer) => {
   const currentLevel = game.currentLevel;
-  game.statistics[currentLevel] = game.timeAnswer.normalAnswer;
+  game.statistics[currentLevel] = game.timeAnswer[timeAnswer];
 };
 
 const getCurrentLevel = (game) => {
   game.currentLevel = game.levels[0];
-
-  currentStatistics(game);
-
   game.levels.shift();
 };
 
@@ -24,8 +21,10 @@ const getCurrentStateGame1 = (game) => {
     const currentUserAnswerLevel = game.userAnswers[currentLevel];
 
     if (currentUserAnswerLevel[currentAnswerKey] === levels[currentLevel].question.answers[i].true) {
+      currentStatistics(game, `normalAnswer`);
       game = game;
     } else {
+      currentStatistics(game, `wrongAnswer`);
       game.lives--;
       break;
     }
@@ -37,9 +36,11 @@ const getCurrentStateGame3 = (game, src) => {
   for (let answer of answersKeys) {
     if (answers[answer].url === src) {
       if (answers[answer].true === `paint`) {
+        currentStatistics(game, `normalAnswer`);
         game = game;
         break;
       } else {
+        currentStatistics(game, `wrongAnswer`);
         game.lives--;
         break;
       }

@@ -6,7 +6,7 @@ import levels from '../data/data-levels.js';
 import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
 import {getCurrentStateGame1, getCurrentLevel} from '../current-state.js';
-import {statsTemplate} from './stats.js';
+import {statsTemplate, showIntroTemplate} from './stats.js';
 
 const bodyTemplate = (data) => `<div class="game">
 <p class="game__task">${data.questions[0].text}</p>
@@ -30,7 +30,7 @@ ${levels.level1.question.answers.map((answer, i) =>
   <ul class="stats">
 ${
   Object.keys(data.statistics).map((element) => {
-    return data.statistics[element];
+    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
   }).join(``)
 }
   </ul>
@@ -69,14 +69,15 @@ const showGame2Template = (game) => {
 
         if (game.lives < 0) {
           showWindow(statsTemplate(game));
+          showIntroTemplate();
           return;
         }
 
         if (game.levels.length === 0) {
           showWindow(statsTemplate(game));
+          showIntroTemplate();
           return;
         }
-
         showWindow(game2Template(game));
         showGame3Template(game);
       }

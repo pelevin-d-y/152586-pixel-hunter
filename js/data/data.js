@@ -21,7 +21,7 @@ function startGame(state) {
     userAnswers: {
       level1: {
         answer1: ``,
-        answer2: ``
+        answer2: ``,
       },
       level2: {
         answer: ``
@@ -54,23 +54,24 @@ function startGame(state) {
         answer2: ``
       }
     },
+    answerPoints: [{answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}, {answer: ``, speed: ``}],
     statistics: {
-      level1: `<li class="stats__result stats__result--unknown"></li>`,
-      level2: `<li class="stats__result stats__result--unknown"></li>`,
-      level3: `<li class="stats__result stats__result--unknown"></li>`,
-      level4: `<li class="stats__result stats__result--unknown"></li>`,
-      level5: `<li class="stats__result stats__result--unknown"></li>`,
-      level6: `<li class="stats__result stats__result--unknown"></li>`,
-      level7: `<li class="stats__result stats__result--unknown"></li>`,
-      level8: `<li class="stats__result stats__result--unknown"></li>`,
-      level9: `<li class="stats__result stats__result--unknown"></li>`,
-      level10: `<li class="stats__result stats__result--unknown"></li>`
+      level1: `unknown`,
+      level2: `unknown`,
+      level3: `unknown`,
+      level4: `unknown`,
+      level5: `unknown`,
+      level6: `unknown`,
+      level7: `unknown`,
+      level8: `unknown`,
+      level9: `unknown`,
+      level10: `unknown`
     },
     timeAnswer: {
-      slowAnswer: `<li class="stats__result stats__result--slow"><li>`,
-      fastAnswer: `<li class="stats__result stats__result--fast"><li>`,
-      normalAnswer: `<li class="stats__result stats__result--correct"></li>`,
-      wrongAnswer: `<li class="stats__result stats__result--wrong"></li>`
+      slowAnswer: `slow`,
+      fastAnswer: `fast`,
+      normalAnswer: `correct`,
+      wrongAnswer: `wrong`
     }
   };
 }
