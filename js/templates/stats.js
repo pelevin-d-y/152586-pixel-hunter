@@ -49,6 +49,8 @@ ${
     <td class="result__total">${data.answerPoints.filter((element) => {
     if (element.answer) {
       return true;
+    } else {
+      return false;
     }
   }).length * 100}</td>
   </tr>
@@ -57,21 +59,33 @@ ${
     <td class="result__extra">Бонус за скорость:</td>
     <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
     <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">50</td>
+    <td class="result__total">${data.answerPoints.filter((element) => {
+    if (element.speed === `fast`) {
+      return true;
+    } else {
+      return false;
+    }
+  }).length * 50}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Бонус за жизни:</td>
     <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
     <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">100</td>
+    <td class="result__total">${data.lives * 50}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Штраф за медлительность:</td>
     <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
     <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">-100</td>
+    <td class="result__total">${data.answerPoints.filter((element) => {
+    if (element.speed === `slow`) {
+      return true;
+    } else {
+      return false;
+    }
+  }).length * -50}</td>
   </tr>
   <tr>
     <td colspan="5" class="result__total  result__total--final">${countPoint(data.answerPoints, data.lives)}</td>
