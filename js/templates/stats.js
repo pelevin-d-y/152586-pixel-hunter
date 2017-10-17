@@ -46,7 +46,11 @@ ${
       </ul>
     </td>
     <td class="result__points">×&nbsp;100</td>
-    <td class="result__total">900</td>
+    <td class="result__total">${data.answerPoints.filter((element) => {
+    if (element.answer) {
+      return true;
+    }
+  }).length * 100}</td>
   </tr>
   <tr>
     <td></td>
@@ -167,10 +171,15 @@ function statsTemplate(game) {
   const arrayKeysStatistics = Object.keys(game.statistics);
 
   arrayKeysStatistics.forEach((element, i) => {
-    game.answerPoints[i].answer = true;
-    game.answerPoints[i].speed = game.statistics[element];
+    if (game.statistics[element] === `wrong`) {
+      game.answerPoints[i].answer = false;
+      game.answerPoints[i].speed = game.statistics[element];
+    } else {
+      game.answerPoints[i].answer = true;
+      game.answerPoints[i].speed = game.statistics[element];
+    }
   });
-  console.log(countPoint(game.answerPoints, game.lives));
+  console.log(game);
 
   if (game.lives < 0) {
     return getElementFromTemplate(statsFail(game) + footerTemplat);
