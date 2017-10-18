@@ -2,63 +2,56 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game3Template, showStatsTemplate} from './game-3.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
+import {headerTemplate, headerBackTemplate} from './header.js';
+import footerTemplat from './footer.js';
+import {getCurrentStateGame1, getCurrentLevel} from '../current-state.js';
+import {statsTemplate, showIntroTemplate} from './stats.js';
 
-const game2Template = getElementFromTemplate(`<header class="header">
-<div class="header__back">
-  <button class="back">
-    <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-    <img src="img/logo_small.svg" width="101" height="44">
-  </button>
-</div>
-<h1 class="game__timer">NN</h1>
-<div class="game__lives">
-  <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-</div>
-</header>
-<div class="game">
-<p class="game__task">Угадай, фото или рисунок?</p>
+const getGameOption = (answer) =>
+  `<div class="game__option">
+  <img src="${answer.url}" alt="Option 1" width="705" height="455">
+  <label class="game__answer  game__answer--photo">
+    <input name="question1" type="radio" value="photo">
+    <span>Фото</span>
+  </label>
+  <label class="game__answer  game__answer--wide  game__answer--paint">
+    <input name="question1" type="radio" value="paint">
+    <span>Рисунок</span>
+  </label>
+</div>`;
+
+
+const bodyTemplate = (data) => {
+  const content = data.gameQuestions.question2.answers.map((answer) => {
+    return getGameOption(answer);
+  }).join(``);
+
+  const statistics = Object.keys(data.statistics).map((element) => {
+    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
+  }).join(``);
+
+  return `<div class="game">
+<p class="game__task">${data.gameQuestions.question2.text}</p>
 <form class="game__content  game__content--wide">
-  <div class="game__option">
-    <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
-    <label class="game__answer  game__answer--photo">
-      <input name="question1" type="radio" value="photo">
-      <span>Фото</span>
-    </label>
-    <label class="game__answer  game__answer--wide  game__answer--paint">
-      <input name="question1" type="radio" value="paint">
-      <span>Рисунок</span>
-    </label>
-  </div>
+  ${content}
 </form>
 <div class="stats">
   <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
+    ${statistics}
   </ul>
 </div>
-</div>
-<footer class="footer">
-<a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-<span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-<div class="footer__social-links">
-  <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-  <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-  <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-  <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-</div>
-</footer>`);
+</div>`;
+};
 
-const showGame3Template = () => {
+function game2Template(game) {
+  return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(game) + footerTemplat);
+}
+
+const showGame3Template = (game) => {
+  game.currentLevel = getCurrentLevel(game);
+  const currentLevel = game.currentLevel;
+  game.userAnswers[currentLevel] = {};
+
   const controlElementsGame2 = Array.from(document.querySelectorAll(`.game__answer`));
   const backButton = document.querySelector(`.back`);
 
@@ -68,9 +61,23 @@ const showGame3Template = () => {
   });
 
   controlElementsGame2.forEach((element) => {
-    element.addEventListener(`click`, () => {
-      showWindow(game3Template);
-      showStatsTemplate();
+    element.addEventListener(`change`, (evt) => {
+      game.userAnswers[currentLevel].answer = evt.target.value;
+      getCurrentStateGame1(game);
+      if (game.lives < 0) {
+        showWindow(statsTemplate(game));
+        showIntroTemplate();
+        return;
+      }
+
+      if (game.currentLevel === game.levels[game.levels.length - 1]) {
+        showWindow(statsTemplate(game));
+        showIntroTemplate();
+        return;
+      }
+
+      showWindow(game3Template(game));
+      showStatsTemplate(game);
     });
   });
 };

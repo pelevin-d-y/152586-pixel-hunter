@@ -11,7 +11,7 @@ const countPoint = (answersUser, livesUser) => {
     return points;
   }
 
-  if (livesUser <= 0) {
+  if (livesUser < 0) {
     points = -1;
     return points;
   }

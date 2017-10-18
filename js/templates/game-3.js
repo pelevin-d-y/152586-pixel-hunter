@@ -2,61 +2,46 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {statsTemplate, showIntroTemplate} from './stats.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
+import {headerTemplate, headerBackTemplate} from './header.js';
+import footerTemplat from './footer.js';
+import {getCurrentStateGame3, getCurrentLevel} from '../current-state.js';
+import {game1Template, showGame2Template} from './game-1.js';
 
-const game3Template = getElementFromTemplate(`<header class="header">
-<div class="header__back">
-  <button class="back">
-    <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-    <img src="img/logo_small.svg" width="101" height="44">
-  </button>
-</div>
-<h1 class="game__timer">NN</h1>
-<div class="game__lives">
-  <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-</div>
-</header>
-<div class="game">
-<p class="game__task">Найдите рисунок среди изображений</p>
-<form class="game__content  game__content--triple">
-  <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-  </div>
-  <div class="game__option  game__option--selected">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-  </div>
-  <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-  </div>
-</form>
-<div class="stats">
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</div>
-</div>
-<footer class="footer">
-<a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-<span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-<div class="footer__social-links">
-  <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-  <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-  <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-  <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-</div>
-</footer>`);
+const getGameOption = (answer) => `<div class="game__option">
+  <img src="${answer.url}" alt="Option 1" width="304" height="455">
+</div>`;
 
-const showStatsTemplate = () => {
+const bodyTemplate = (data) => {
+  const content = data.gameQuestions.question3.answers.map((answer) => {
+    return getGameOption(answer);
+  }).join(``);
+
+  const statistics = Object.keys(data.statistics).map((element) => {
+    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
+  }).join(``);
+
+  return `<div class="game">
+  <p class="game__task">${data.gameQuestions.question3.text}</p>
+  <form class="game__content  game__content--triple">
+  ${content}
+  </form>
+  <div class="stats">
+    <ul class="stats">
+      ${statistics}
+     </ul>
+  </div>
+</div>`;
+};
+
+function game3Template(game) {
+  return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(game) + footerTemplat);
+}
+
+const showStatsTemplate = (game) => {
+  game.currentLevel = getCurrentLevel(game);
+  const currentLevel = game.currentLevel;
+  game.userAnswers[currentLevel] = {};
+
   const controlElementsGame3 = Array.from(document.querySelectorAll(`.game__option`));
 
   const backButton = document.querySelector(`.back`);
@@ -67,9 +52,26 @@ const showStatsTemplate = () => {
   });
 
   controlElementsGame3.forEach((element) => {
-    element.addEventListener(`click`, () => {
-      showWindow(statsTemplate);
-      showIntroTemplate();
+    element.addEventListener(`click`, (evt) => {
+
+      const srcCurrentImage = evt.target.children[0].getAttribute(`src`);
+      game.userAnswers[currentLevel].answer = srcCurrentImage;
+      getCurrentStateGame3(game, srcCurrentImage);
+
+      if (game.lives < 0) {
+        showWindow(statsTemplate(game));
+        showIntroTemplate();
+        return;
+      }
+
+      if (game.currentLevel === game.levels[game.levels.length - 1]) {
+        showWindow(statsTemplate(game));
+        showIntroTemplate();
+        return;
+      }
+
+      showWindow(game1Template(game));
+      showGame2Template(game);
     });
   });
 };

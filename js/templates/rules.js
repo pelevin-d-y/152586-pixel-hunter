@@ -2,23 +2,19 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game1Template, showGame2Template} from './game-1.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
+import {headerBackTemplate} from './header.js';
 
-const rulesTemplate = getElementFromTemplate(`<header class="header">
-<div class="header__back">
-  <button class="back">
-    <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-    <img src="img/logo_small.svg" width="101" height="44">
-  </button>
-</div>
+const screenTemplate = (data) => `<header class="header">
+${headerBackTemplate}
 </header>
 <div class="rules">
 <h1 class="rules__title">Правила</h1>
-<p class="rules__description">Угадай 10 раз для каждого изображения фото <img
+<p class="rules__description">Угадай ${data.numberLevels} раз для каждого изображения фото <img
   src="img/photo_icon.png" width="16" height="16"> или рисунок <img
   src="img/paint_icon.png" width="16" height="16" alt="">.<br>
   Фотографиями или рисунками могут быть оба изображения.<br>
-  На каждую попытку отводится 30 секунд.<br>
-  Ошибиться можно не более 3 раз.<br>
+  На каждую попытку отводится ${data.time} секунд.<br>
+  Ошибиться можно не более  ${data.lives} раз.<br>
   <br>
   Готовы?
 </p>
@@ -36,9 +32,13 @@ const rulesTemplate = getElementFromTemplate(`<header class="header">
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
 
-const showGame1Template = () => {
+function rulesTemplate(game) {
+  return getElementFromTemplate(screenTemplate(game));
+}
+
+const showGame1Template = (game) => {
   const controlElementRules = document.querySelector(`.rules__button`);
   const inputGame1 = document.querySelector(`.rules__input`);
   const backButton = document.querySelector(`.back`);
@@ -55,8 +55,8 @@ const showGame1Template = () => {
   });
 
   controlElementRules.addEventListener(`click`, () => {
-    showWindow(game1Template);
-    showGame2Template();
+    showWindow(game1Template(game));
+    showGame2Template(game);
   });
 };
 

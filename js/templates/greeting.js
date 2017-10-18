@@ -1,8 +1,10 @@
 import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {rulesTemplate, showGame1Template} from './rules.js';
+import {initialState, startGame} from '../data/data.js';
+import levels from '../data/data-levels.js';
 
-const greetingTemplate = getElementFromTemplate(`<div class="greeting central--blur">
+const screenTemplate = `<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
 <h1 class="greeting__asterisk">*</h1>
 <div class="greeting__challenge">
@@ -24,15 +26,24 @@ const greetingTemplate = getElementFromTemplate(`<div class="greeting central--b
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
+
+const game = startGame(initialState);
+const keysLevels = Object.keys(levels);
+for (let key of keysLevels) {
+  game.statistics[key] = `unknown`;
+}
+
+const greetingTemplate = getElementFromTemplate(screenTemplate);
+
 
 const showRulesTemplate = () => {
 
   const controlElementGreeting = document.querySelector(`.greeting__continue`);
 
   controlElementGreeting.addEventListener(`click`, () => {
-    showWindow(rulesTemplate);
-    showGame1Template();
+    showWindow(rulesTemplate(game));
+    showGame1Template(game);
   });
 };
 
