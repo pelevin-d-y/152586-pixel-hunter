@@ -2,40 +2,44 @@ import showWindow from '../show-window.js';
 import getElementFromTemplate from '../utils.js';
 import {game2Template, showGame3Template} from './game-2.js';
 import {introTemplate, showGreetingTemplate} from './intro.js';
-import levels from '../data/data-levels.js';
 import {headerTemplate, headerBackTemplate} from './header.js';
 import footerTemplat from './footer.js';
 import {getCurrentStateGame1, getCurrentLevel} from '../current-state.js';
 import {statsTemplate, showIntroTemplate} from './stats.js';
 
-const bodyTemplate = (data) => `<div class="game">
-<p class="game__task">${data.questions[0].text}</p>
+const getGameOption = (answer, index) => `<div class="game__option">
+<img src="${answer.url}" alt="Option ${index}" width="468" height="458">
+<label class="game__answer game__answer--photo">
+  <input class="game-1__checkbox" name="question${index}" type="radio" value="photo">
+  <span>Фото</span>
+</label>
+<label class="game__answer game__answer--paint">
+  <input class="game-1__checkbox" name="question${index}" type="radio" value="paint">
+  <span>Рисунок</span>
+</label>
+</div>`;
+
+const bodyTemplate = (data) => {
+  const content = data.gameQuestions.question1.answers.map((answer, i) => {
+    return getGameOption(answer, i + 1);
+  }).join(``);
+
+  const statistics = Object.keys(data.statistics).map((element) => {
+    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
+  }).join(``);
+
+  return `<div class="game">
+<p class="game__task">${data.gameQuestions.question1.text}</p>
 <form class="game__content">
-${levels.level1.question.answers.map((answer, i) =>
-    `<div class="game__option">
-    <img src="${answer.url}" alt="Option ${i + 1}" width="468" height="458">
-    <label class="game__answer game__answer--photo">
-      <input class="game-1__checkbox" name="question${i + 1}" type="radio" value="photo">
-      <span>Фото</span>
-    </label>
-    <label class="game__answer game__answer--paint">
-      <input class="game-1__checkbox" name="question${i + 1}" type="radio" value="paint">
-      <span>Рисунок</span>
-    </label>
-  </div>`
-  ).join(``)
-}
+  ${content}
 </form>
 <div class="stats">
   <ul class="stats">
-${
-  Object.keys(data.statistics).map((element) => {
-    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
-  }).join(``)
-}
+    ${statistics}
   </ul>
 </div>
 </div>`;
+};
 
 function game1Template(game) {
   return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(game) + footerTemplat);
@@ -74,7 +78,7 @@ const showGame2Template = (game) => {
           return;
         }
 
-        if (game.currentLevel === `level10`) {
+        if (game.currentLevel === game.levels[game.levels.length - 1]) {
           showWindow(statsTemplate(game));
           showIntroTemplate();
           return;

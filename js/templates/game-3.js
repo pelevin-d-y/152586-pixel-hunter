@@ -7,26 +7,31 @@ import footerTemplat from './footer.js';
 import {getCurrentStateGame3, getCurrentLevel} from '../current-state.js';
 import {game1Template, showGame2Template} from './game-1.js';
 
-const bodyTemplate = (data) => `<div class="game">
-<p class="game__task">${data.questions[2].text}</p>
-<form class="game__content  game__content--triple">
-${data.questions[2].answers.map((answer) =>
-    `<div class="game__option">
-      <img src="${answer.url}" alt="Option 1" width="304" height="455">
-    </div>`
-  ).join(``)
-}
- </form>
-<div class="stats">
-  <ul class="stats">
-${
-  Object.keys(data.statistics).map((element) => {
-    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
-  }).join(``)
-}
-  </ul>
-</div>
+const getGameOption = (answer) => `<div class="game__option">
+  <img src="${answer.url}" alt="Option 1" width="304" height="455">
 </div>`;
+
+const bodyTemplate = (data) => {
+  const content = data.gameQuestions.questions3.answers.map((answer) => {
+    return getGameOption(answer);
+  }).join(``);
+
+  const statistics = Object.keys(data.statistics).map((element) => {
+    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
+  }).join(``);
+
+  return `<div class="game">
+  <p class="game__task">${data.gameQuestions.questions3.text}</p>
+  <form class="game__content  game__content--triple">
+  ${content}
+  </form>
+  <div class="stats">
+    <ul class="stats">
+      ${statistics}
+     </ul>
+  </div>
+</div>`;
+};
 
 function game3Template(game) {
   return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(game) + footerTemplat);
@@ -59,7 +64,7 @@ const showStatsTemplate = (game) => {
         return;
       }
 
-      if (game.levels.length === 0) {
+      if (game.currentLevel === game.levels[game.levels.length - 1]) {
         showWindow(statsTemplate(game));
         showIntroTemplate();
         return;

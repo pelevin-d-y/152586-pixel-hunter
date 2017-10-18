@@ -12,7 +12,7 @@ function startGame(state) {
   return {
     name: `pixel hunter`,
     attempt: 1,
-    questions: [questions.question1, questions.question2, questions.question3],
+    gameQuestions: questions,
     lives: state.lives,
     time: initialState.time,
     numberLevels: initialState.numberLevels,
