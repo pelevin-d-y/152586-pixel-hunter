@@ -1,4 +1,5 @@
 import questions from './data-questions.js';
+import levels from './data-levels.js';
 
 const initialState = {
   numberLevels: 10,
@@ -16,7 +17,7 @@ function startGame(state) {
     lives: state.lives,
     time: initialState.time,
     numberLevels: initialState.numberLevels,
-    levels: [`level1`, `level2`, `level3`, `level4`, `level5`, `level6`, `level7`, `level8`, `level9`, `level10`],
+    levels: Object.keys(levels),
     currentLevel: ``,
     userAnswers: {},
     answerPoints: [],

@@ -47,6 +47,7 @@ function game1Template(game) {
 
 const showGame2Template = (game) => {
 
+  console.log(game);
   game.currentLevel = getCurrentLevel(game);
   const currentLevel = game.currentLevel;
   game.userAnswers[currentLevel] = {};

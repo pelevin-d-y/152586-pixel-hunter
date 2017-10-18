@@ -58,7 +58,7 @@ ${statistics}
       </ul>
     </td>
     <td class="result__points">×&nbsp;100</td>
-    <td class="result__total">${points(100)}</td>
+    <td class="result__total">${points(100, `correct`)}</td>
   </tr>
   <tr>
     <td></td>

@@ -12,7 +12,7 @@ const getGameOption = (answer) => `<div class="game__option">
 </div>`;
 
 const bodyTemplate = (data) => {
-  const content = data.gameQuestions.questions3.answers.map((answer) => {
+  const content = data.gameQuestions.question3.answers.map((answer) => {
     return getGameOption(answer);
   }).join(``);
 
@@ -21,7 +21,7 @@ const bodyTemplate = (data) => {
   }).join(``);
 
   return `<div class="game">
-  <p class="game__task">${data.gameQuestions.questions3.text}</p>
+  <p class="game__task">${data.gameQuestions.question3.text}</p>
   <form class="game__content  game__content--triple">
   ${content}
   </form>
