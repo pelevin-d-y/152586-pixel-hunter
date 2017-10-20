@@ -1,11 +1,11 @@
-import showWindow from '../show-window.js';
-import getElementFromTemplate from '../utils.js';
-import {statsTemplate, showIntroTemplate} from './stats.js';
-import {introTemplate, showGreetingTemplate} from './intro.js';
-import {headerTemplate, headerBackTemplate} from './header.js';
-import footerTemplat from './footer.js';
-import {getCurrentStateGame3, getCurrentLevel} from '../current-state.js';
-import {game1Template, showGame2Template} from './game-1.js';
+import showWindow from '../../show-window.js';
+import getElementFromTemplate from '../../utils.js';
+import {statsTemplate, showIntroTemplate} from '../stats/stats.js';
+import {introTemplate, showGreetingTemplate} from '../intro/intro.js';
+import {headerTemplate, headerBackTemplate} from '../header/header.js';
+import footerTemplat from '../footer/footer.js';
+import {getCurrentStateGame3, getCurrentLevel} from '../../current-state.js';
+import {game1Template, showGame2Template} from '../game-1/game-1.js';
 
 const getGameOption = (answer) => `<div class="game__option">
   <img src="${answer.url}" alt="Option 1" width="304" height="455">

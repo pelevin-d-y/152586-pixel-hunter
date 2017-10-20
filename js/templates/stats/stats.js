@@ -1,9 +1,9 @@
-import showWindow from '../show-window.js';
-import getElementFromTemplate from '../utils.js';
-import {introTemplate, showGreetingTemplate} from './intro.js';
-import footerTemplat from './footer.js';
-import {headerBackTemplate} from './header.js';
-import countPoint from '../count-point.js';
+import showWindow from '../../show-window.js';
+import getElementFromTemplate from '../../utils.js';
+import {introTemplate, showGreetingTemplate} from '../intro/intro.js';
+import footerTemplat from '../footer/footer.js';
+import {headerBackTemplate} from '../header/header.js';
+import countPoint from '../../count-point.js';
 
 const statsFail = (data) => {
   const statistics = Object.keys(data.statistics).map((element) => {

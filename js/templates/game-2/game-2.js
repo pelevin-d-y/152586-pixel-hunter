@@ -1,11 +1,11 @@
-import showWindow from '../show-window.js';
-import getElementFromTemplate from '../utils.js';
-import {game3Template, showStatsTemplate} from './game-3.js';
-import {introTemplate, showGreetingTemplate} from './intro.js';
-import {headerTemplate, headerBackTemplate} from './header.js';
-import footerTemplat from './footer.js';
-import {getCurrentStateGame1, getCurrentLevel} from '../current-state.js';
-import {statsTemplate, showIntroTemplate} from './stats.js';
+import showWindow from '../../show-window.js';
+import getElementFromTemplate from '../../utils.js';
+import {game3Template, showStatsTemplate} from '../game-3/game-3.js';
+import {introTemplate, showGreetingTemplate} from '../intro/intro.js';
+import {headerTemplate, headerBackTemplate} from '../header/header.js';
+import footerTemplat from '../footer/footer.js';
+import {getCurrentStateGame1, getCurrentLevel} from '../../current-state.js';
+import {statsTemplate, showIntroTemplate} from '../stats/stats.js';
 
 const getGameOption = (answer) =>
   `<div class="game__option">
