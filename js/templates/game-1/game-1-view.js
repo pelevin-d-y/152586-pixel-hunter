@@ -48,11 +48,10 @@ class Game1View extends AbstractView {
   }
 
   bind() {
+    this.currentLevel();
     const images = Array.from(this.element.querySelectorAll(`.game__option`));
     const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
     const backButton = this.element.querySelector(`.back`);
-
-    console.log(this.render());
 
     backButton.addEventListener(`click`, () => {
       this.backView();
@@ -60,15 +59,15 @@ class Game1View extends AbstractView {
 
     images.forEach((element) => {
       element.addEventListener(`change`, (evt) => {
-        // if (evt.currentTarget === images[0]) {
-        //   game.userAnswers[currentLevel].answer1 = evt.target.value;
-        // } else {
-        //   game.userAnswers[currentLevel].answer2 = evt.target.value;
-        // }
+        if (evt.currentTarget === images[0]) {
+          this.game.userAnswers[this.game.currentLevel].answer1 = evt.target.value;
+        } else {
+          this.game.userAnswers[this.game.currentLevel].answer2 = evt.target.value;
+        }
 
         const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
         if (isChecked) {
-          //getCurrentStateGame1(game);
+          this.getCurrentState(this.game);
 
           if (this.game.lives < 0) {
             //showWindow(statsTemplate(game));
@@ -76,16 +75,25 @@ class Game1View extends AbstractView {
             return;
           }
 
-          if (game.currentLevel === game.levels[game.levels.length - 1]) {
+          if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1]) {
             //showWindow(statsTemplate(game));
             //showIntroTemplate();
             return;
           }
+          this.nextView();
           //showWindow(game2Template(game));
           //showGame3Template(game);
         }
       });
     });
+  }
+
+  currentLevel() {
+
+  }
+
+  getCurrentState() {
+
   }
 
   nextView() {
