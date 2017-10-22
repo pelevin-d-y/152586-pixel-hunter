@@ -29,19 +29,6 @@ const statsFail = (game) => {
 
 const statsVictory = (game) => {
 
-  const arrayKeysStatistics = Object.keys(game.statistics);
-  arrayKeysStatistics.forEach((element, i) => {
-    if (game.statistics[element] === `wrong`) {
-      game.answerPoints[i] = {};
-      game.answerPoints[i].answer = false;
-      game.answerPoints[i].speed = game.statistics[element];
-    } else {
-      game.answerPoints[i] = {};
-      game.answerPoints[i].answer = true;
-      game.answerPoints[i].speed = game.statistics[element];
-    }
-  });
-
   const statistics = Object.keys(game.statistics).map((element) => {
     return `<li class="stats__result stats__result--` + game.statistics[element] + `"></li>`;
   }).join(``);
@@ -104,7 +91,6 @@ class ViewStats3 extends AbstractView {
   constructor(game) {
     super();
     this.game = game;
-    this.answersStatistics(this.game);
   }
 
   get template() {
@@ -119,19 +105,6 @@ class ViewStats3 extends AbstractView {
   }
 
   bind() {
-    // const arrayKeysStatistics = Object.keys(this.game.statistics);
-    // arrayKeysStatistics.forEach((element, i) => {
-    //   if (this.game.statistics[element] === `wrong`) {
-    //     this.game.answerPoints[i] = {};
-    //     this.game.answerPoints[i].answer = false;
-    //     this.game.answerPoints[i].speed = this.game.statistics[element];
-    //   } else {
-    //     this.game.answerPoints[i] = {};
-    //     this.game.answerPoints[i].answer = true;
-    //     this.game.answerPoints[i].speed = this.game.statistics[element];
-    //   }
-    // });
-
     const backButton = this.element.querySelector(`.back`);
 
     backButton.addEventListener(`click`, () => {

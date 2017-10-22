@@ -11,6 +11,17 @@ const Timer = function (time, callback) {
 
   this.timerRun = setInterval(() => {
     this.tick();
+    const timerElement = document.querySelector(`.game__timer`);
+    timerElement.innerHTML = this.counter;
+
+    if (this.counter <= 25) {
+      if (timerElement.hasAttribute(`hidden`)) {
+        timerElement.removeAttribute(`hidden`);
+      } else {
+        timerElement.setAttribute(`hidden`, true);
+      }
+    }
+
     if (this.counter === 0) {
       this.stop();
       if (typeof (callback) === `function`) {
@@ -24,5 +35,6 @@ const Timer = function (time, callback) {
     clearInterval(this.timerRun);
   };
 };
+
 
 export default Timer;

@@ -15,6 +15,7 @@ function startGame(state) {
     attempt: 1,
     gameQuestions: questions,
     lives: state.lives,
+    timer: ``,
     time: initialState.time,
     numberLevels: initialState.numberLevels,
     levels: Object.keys(levels),
