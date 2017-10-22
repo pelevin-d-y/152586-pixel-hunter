@@ -1,79 +1,36 @@
 import showWindow from '../../show-window.js';
-import getElementFromTemplate from '../../utils.js';
-import {statsTemplate, showIntroTemplate} from '../stats/stats.js';
-import {introTemplate, showGreetingTemplate} from '../intro/intro.js';
-import {headerTemplate, headerBackTemplate} from '../header/header.js';
-import footerTemplat from '../footer/footer.js';
+import {stats} from '../stats/stats.js';
+import {game1} from '../game-1/game-1.js';
 import {getCurrentStateGame3, getCurrentLevel} from '../../current-state.js';
-import {game1Template, showGame2Template} from '../game-1/game-1.js';
+import ViewGame3 from './game-3-view.js';
+import {intro} from '../intro/intro.js';
 
-const getGameOption = (answer) => `<div class="game__option">
-  <img src="${answer.url}" alt="Option 1" width="304" height="455">
-</div>`;
+const game3 = (game) => {
+  const viewGame3 = new ViewGame3(game);
 
-const bodyTemplate = (data) => {
-  const content = data.gameQuestions.question3.answers.map((answer) => {
-    return getGameOption(answer);
-  }).join(``);
+  viewGame3.currentLevel = () => {
+    game.currentLevel = getCurrentLevel(game);
+    game.userAnswers[game.currentLevel] = {};
+  };
 
-  const statistics = Object.keys(data.statistics).map((element) => {
-    return `<li class="stats__result stats__result--` + data.statistics[element] + `"></li>`;
-  }).join(``);
+  viewGame3.getCurrentState = () => {
+    getCurrentStateGame3(game, game.srcCurrentImage);
+  };
 
-  return `<div class="game">
-  <p class="game__task">${data.gameQuestions.question3.text}</p>
-  <form class="game__content  game__content--triple">
-  ${content}
-  </form>
-  <div class="stats">
-    <ul class="stats">
-      ${statistics}
-     </ul>
-  </div>
-</div>`;
+  viewGame3.nextView = () => {
+    showWindow(game1(game));
+  };
+
+  viewGame3.backView = () => {
+    showWindow(intro);
+  };
+
+  viewGame3.statsView = () => {
+    showWindow(stats(game));
+  };
+
+  return viewGame3;
 };
 
-function game3Template(game) {
-  return getElementFromTemplate(headerTemplate(game, headerBackTemplate) + bodyTemplate(game) + footerTemplat);
-}
 
-const showStatsTemplate = (game) => {
-  game.currentLevel = getCurrentLevel(game);
-  const currentLevel = game.currentLevel;
-  game.userAnswers[currentLevel] = {};
-
-  const controlElementsGame3 = Array.from(document.querySelectorAll(`.game__option`));
-
-  const backButton = document.querySelector(`.back`);
-
-  backButton.addEventListener(`click`, () => {
-    showWindow(introTemplate);
-    showGreetingTemplate();
-  });
-
-  controlElementsGame3.forEach((element) => {
-    element.addEventListener(`click`, (evt) => {
-
-      const srcCurrentImage = evt.target.children[0].getAttribute(`src`);
-      game.userAnswers[currentLevel].answer = srcCurrentImage;
-      getCurrentStateGame3(game, srcCurrentImage);
-
-      if (game.lives < 0) {
-        showWindow(statsTemplate(game));
-        showIntroTemplate();
-        return;
-      }
-
-      if (game.currentLevel === game.levels[game.levels.length - 1]) {
-        showWindow(statsTemplate(game));
-        showIntroTemplate();
-        return;
-      }
-
-      showWindow(game1Template(game));
-      showGame2Template(game);
-    });
-  });
-};
-
-export {game3Template, showStatsTemplate};
+export {game3};

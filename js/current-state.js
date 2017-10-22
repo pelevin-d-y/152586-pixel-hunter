@@ -13,7 +13,6 @@ const getCurrentLevel = (game) => {
 
 const getCurrentStateGame1 = (game) => {
   const currentLevel = game.currentLevel;
-  console.log(currentLevel);
 
   for (let i = 0; levels[currentLevel].question.answers.length > i; i++) {
     const gameAnswersKeys = Object.keys(game.userAnswers[currentLevel]).sort();

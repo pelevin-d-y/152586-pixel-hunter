@@ -49,6 +49,7 @@ class Game1View extends AbstractView {
 
   bind() {
     this.currentLevel();
+
     const images = Array.from(this.element.querySelectorAll(`.game__option`));
     const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
     const backButton = this.element.querySelector(`.back`);
@@ -70,19 +71,15 @@ class Game1View extends AbstractView {
           this.getCurrentState(this.game);
 
           if (this.game.lives < 0) {
-            //showWindow(statsTemplate(game));
-            //showIntroTemplate();
+            this.statsView();
             return;
           }
 
           if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1]) {
-            //showWindow(statsTemplate(game));
-            //showIntroTemplate();
+            this.statsView();
             return;
           }
           this.nextView();
-          //showWindow(game2Template(game));
-          //showGame3Template(game);
         }
       });
     });
@@ -101,6 +98,10 @@ class Game1View extends AbstractView {
   }
 
   backView() {
+
+  }
+
+  statsView() {
 
   }
 }

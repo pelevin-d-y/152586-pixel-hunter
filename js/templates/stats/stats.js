@@ -1,9 +1,10 @@
 import showWindow from '../../show-window.js';
 import getElementFromTemplate from '../../utils.js';
-import {introTemplate, showGreetingTemplate} from '../intro/intro.js';
 import footerTemplat from '../footer/footer.js';
 import {headerBackTemplate} from '../header/header.js';
 import countPoint from '../../count-point.js';
+import ViewStats3 from './stats-view.js';
+import {intro} from '../intro/intro.js';
 
 const statsFail = (data) => {
   const statistics = Object.keys(data.statistics).map((element) => {
@@ -112,13 +113,17 @@ function statsTemplate(game) {
   return null;
 }
 
-const showIntroTemplate = () => {
-  const backButton = document.querySelector(`.back`);
+const stats = (game) => {
+  const viewStats3 = new ViewStats3(game);
 
-  backButton.addEventListener(`click`, () => {
-    showWindow(introTemplate);
-    showGreetingTemplate();
-  });
+  viewStats3.backView = () => {
+    showWindow(intro);
+  };
+
+  viewStats3.answersStatistics = () => {
+  };
+
+  return viewStats3;
 };
 
-export {statsTemplate, showIntroTemplate};
+export {statsTemplate, stats};
