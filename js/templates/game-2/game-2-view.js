@@ -49,8 +49,6 @@ class ViewGame2 extends AbstractView {
   }
 
   bind() {
-    this.currentLevel();
-
     const controlElementsGame2 = Array.from(this.element.querySelectorAll(`.game__answer`));
     const backButton = this.element.querySelector(`.back`);
 
@@ -60,29 +58,9 @@ class ViewGame2 extends AbstractView {
 
     controlElementsGame2.forEach((element) => {
       element.addEventListener(`change`, (evt) => {
-        this.game.userAnswers[this.game.currentLevel].answer = evt.target.value;
-        this.getCurrentState(this.game);
-        if (this.game.lives < 0) {
-          this.statsView();
-          return;
-        }
-
-        if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1]) {
-          this.statsView();
-          return;
-        }
-
-        this.nextView();
+        this.nextView(evt, ``, evt.target.value);
       });
     });
-  }
-
-  currentLevel() {
-
-  }
-
-  getCurrentState() {
-
   }
 
   nextView() {
@@ -93,9 +71,6 @@ class ViewGame2 extends AbstractView {
 
   }
 
-  statsView() {
-
-  }
 }
 
 export default ViewGame2;

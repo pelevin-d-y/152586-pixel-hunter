@@ -33,10 +33,29 @@ const statsVictory = (game) => {
     return `<li class="stats__result stats__result--` + game.statistics[element] + `"></li>`;
   }).join(``);
 
+  const quantitySlowAnswers = () => {
+    return game.answerPoints.filter((element) => {
+      if (element.speed === `slow`) {
+        return true;
+      } else {
+        return false;
+      }
+    }).length;
+  };
+
+  const quantityFastAnswers = () => {
+    return game.answerPoints.filter((element) => {
+      if (element.speed === `fast`) {
+        return true;
+      } else {
+        return false;
+      }
+    }).length;
+  };
+
   const trueAnswers = (factor) => {
     return game.answerPoints.filter((element) => {
       if (element.answer === true) {
-        console.log(element.answer);
         return true;
       } else {
         return false;
@@ -73,7 +92,7 @@ ${statistics}
   <tr>
     <td></td>
     <td class="result__extra">Бонус за скорость:</td>
-    <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
+    <td class="result__extra">${quantityFastAnswers()}&nbsp;<span class="stats__result stats__result--fast"></span></td>
     <td class="result__points">×&nbsp;50</td>
     <td class="result__total">${points(50, `fast`)}</td>
   </tr>
@@ -87,7 +106,7 @@ ${statistics}
   <tr>
     <td></td>
     <td class="result__extra">Штраф за медлительность:</td>
-    <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
+    <td class="result__extra">${quantitySlowAnswers()}&nbsp;<span class="stats__result stats__result--slow"></span></td>
     <td class="result__points">×&nbsp;50</td>
     <td class="result__total">${points(-50, `slow`)}</td>
   </tr>

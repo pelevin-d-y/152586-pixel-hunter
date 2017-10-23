@@ -5,11 +5,11 @@ import footerTemplat from '../footer/footer.js';
 const getGameOption = (answer, index) => `<div class="game__option">
 <img src="${answer.url}" alt="Option ${index}" width="468" height="458">
 <label class="game__answer game__answer--photo">
-  <input class="game-1__checkbox" name="question${index}" type="radio" value="photo">
+  <input data-answer-index="${index + 1}" class="game-1__checkbox" name="question${index}" type="radio" value="photo">
   <span>Фото</span>
 </label>
 <label class="game__answer game__answer--paint">
-  <input class="game-1__checkbox" name="question${index}" type="radio" value="paint">
+  <input data-answer-index="${index + 1}" class="game-1__checkbox" name="question${index}" type="radio" value="paint">
   <span>Рисунок</span>
 </label>
 </div>`;
@@ -48,10 +48,7 @@ class Game1View extends AbstractView {
   }
 
   bind() {
-    this.currentLevel();
-
     const images = Array.from(this.element.querySelectorAll(`.game__option`));
-    const controlElementsGame1 = images.map((option) => option.querySelectorAll(`.game-1__checkbox`));
     const backButton = this.element.querySelector(`.back`);
 
     backButton.addEventListener(`click`, () => {
@@ -60,36 +57,13 @@ class Game1View extends AbstractView {
 
     images.forEach((element) => {
       element.addEventListener(`change`, (evt) => {
-        if (evt.currentTarget === images[0]) {
-          this.game.userAnswers[this.game.currentLevel].answer1 = evt.target.value;
-        } else {
-          this.game.userAnswers[this.game.currentLevel].answer2 = evt.target.value;
-        }
+        this.nextView(evt, evt.target.dataset.answerIndex, evt.target.value);
 
-        const isChecked = controlElementsGame1.every((checkbox) => checkbox[0].checked || checkbox[1].checked);
-        if (isChecked) {
-          this.getCurrentState(this.game);
-
-          if (this.game.lives < 0) {
-            this.statsView();
-            return;
-          }
-
-          if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1]) {
-            this.statsView();
-            return;
-          }
-          this.nextView();
-        }
       });
     });
   }
 
-  currentLevel() {
-
-  }
-
-  getCurrentState() {
+  userAnswers() {
 
   }
 
@@ -98,10 +72,6 @@ class Game1View extends AbstractView {
   }
 
   backView() {
-
-  }
-
-  statsView() {
 
   }
 }

@@ -39,8 +39,6 @@ class ViewGame3 extends AbstractView {
   }
 
   bind() {
-    this.currentLevel();
-
     const controlElementsGame3 = Array.from(this.element.querySelectorAll(`.game__option`));
     const backButton = this.element.querySelector(`.back`);
 
@@ -50,34 +48,11 @@ class ViewGame3 extends AbstractView {
 
     controlElementsGame3.forEach((element) => {
       element.addEventListener(`click`, (evt) => {
-
-        this.game.srcCurrentImage = evt.target.children[0].getAttribute(`src`);
-        this.game.userAnswers[this.game.currentLevel].answer = this.game.srcCurrentImage;
-        this.getCurrentState(this.game, this.game.srcCurrentImage);
-
-        if (this.game.lives < 0) {
-          this.statsView();
-          return;
-        }
-
-        if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1]) {
-          this.statsView();
-          return;
-        }
-
-        this.nextView();
+        const imageSrc = evt.target.children[0].getAttribute(`src`);
+        this.nextView(evt, ``, imageSrc);
       });
     });
   }
-
-  currentLevel() {
-
-  }
-
-  getCurrentState() {
-
-  }
-
   nextView() {
 
   }

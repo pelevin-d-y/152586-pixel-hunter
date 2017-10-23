@@ -1,40 +1,29 @@
-import showWindow from '../../show-window.js';
 import {game2} from '../game-2/game-2.js';
-import {getCurrentStateGame1, getCurrentLevel} from '../../current-state.js';
+import {getCurrentStateGame1} from '../../current-state.js';
 import Game1View from './game-1-view.js';
-import {intro} from '../intro/intro.js';
-import {stats} from '../stats/stats.js';
-import answersPoint from '../stats/stats-answers.js';
-import Timer from '../../timer.js';
+import {showStatsScreen, showGameScreen, showBackScreen, initGameLevel} from '../game-utils.js';
 
 const game1 = (game) => {
   const viewGame1 = new Game1View(game);
 
-  viewGame1.currentLevel = () => {
-    game.currentLevel = getCurrentLevel(game);
-    game.userAnswers[game.currentLevel] = {};
+  initGameLevel(game);
+
+  viewGame1.nextView = (evt, answerIndex, value) => {
+    game.userAnswers[game.currentLevel][`answer${answerIndex}`] = value;
+    const allAnswered = [1, 2].every((aIndex) => game.userAnswers[game.currentLevel][`answer${aIndex}`]);
+    if (allAnswered) {
+      getCurrentStateGame1(game);
+
+      if (game.currentLevel === game.levels[game.levels.length - 1] || game.lives < 0) {
+        showStatsScreen(game);
+        return;
+      }
+
+      showGameScreen(game, game2);
+    }
   };
 
-  viewGame1.getCurrentState = () => {
-    getCurrentStateGame1(game);
-  };
-
-  viewGame1.nextView = () => {
-    game.timer.stop();
-    game.timer = new Timer(30);
-    showWindow(game2(game));
-  };
-
-  viewGame1.backView = () => {
-    game.timer.stop();
-    showWindow(intro);
-  };
-
-  viewGame1.statsView = () => {
-    game.timer.stop();
-    answersPoint(game);
-    showWindow(stats(game));
-  };
+  viewGame1.backView = () => showBackScreen(game);
 
   return viewGame1;
 };
