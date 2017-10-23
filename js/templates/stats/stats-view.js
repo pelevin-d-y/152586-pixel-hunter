@@ -33,6 +33,17 @@ const statsVictory = (game) => {
     return `<li class="stats__result stats__result--` + game.statistics[element] + `"></li>`;
   }).join(``);
 
+  const trueAnswers = (factor) => {
+    return game.answerPoints.filter((element) => {
+      if (element.answer === true) {
+        console.log(element.answer);
+        return true;
+      } else {
+        return false;
+      }
+    }).length * factor;
+  };
+
   const points = (factor, speed) => {
     return game.answerPoints.filter((element) => {
       if (element.speed === speed) {
@@ -57,7 +68,7 @@ ${statistics}
       </ul>
     </td>
     <td class="result__points">×&nbsp;100</td>
-    <td class="result__total">${points(100, `correct`)}</td>
+    <td class="result__total">${trueAnswers(100)}</td>
   </tr>
   <tr>
     <td></td>
