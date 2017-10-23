@@ -26,10 +26,12 @@ const game2 = (game) => {
   };
 
   viewGame2.backView = () => {
+    game.timer.stop();
     showWindow(intro);
   };
 
   viewGame2.statsView = () => {
+    game.timer.stop();
     answersPoint(game);
     showWindow(stats(game));
   };

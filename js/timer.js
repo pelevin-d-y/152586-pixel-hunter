@@ -14,7 +14,7 @@ const Timer = function (time, callback) {
     const timerElement = document.querySelector(`.game__timer`);
     timerElement.innerHTML = this.counter;
 
-    if (this.counter <= 25) {
+    if (this.counter <= 5) {
       if (timerElement.hasAttribute(`hidden`)) {
         timerElement.removeAttribute(`hidden`);
       } else {

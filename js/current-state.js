@@ -22,7 +22,13 @@ const getCurrentStateGame1 = (game) => {
     const currentUserAnswerLevel = game.userAnswers[currentLevel];
 
     if (currentUserAnswerLevel[currentAnswerKey] === levels[currentLevel].question.answers[i].true) {
-      currentStatistics(game, `normalAnswer`);
+      if (game.timer.counter > 20) {
+        currentStatistics(game, `fastAnswer`);
+      } else if (game.timer.counter > 10) {
+        currentStatistics(game, `normalAnswer`);
+      } else if (game.timer.counter > 0) {
+        currentStatistics(game, `slowAnswer`);
+      }
     } else {
       currentStatistics(game, `wrongAnswer`);
       game.lives--;
@@ -36,7 +42,13 @@ const getCurrentStateGame3 = (game, src) => {
   for (let answer of answersKeys) {
     if (answers[answer].url === src) {
       if (answers[answer].true === `paint`) {
-        currentStatistics(game, `normalAnswer`);
+        if (game.timer.counter > 20) {
+          currentStatistics(game, `fastAnswer`);
+        } else if (game.timer.counter > 10) {
+          currentStatistics(game, `normalAnswer`);
+        } else if (game.timer.counter > 0) {
+          currentStatistics(game, `slowAnswer`);
+        }
         break;
       } else {
         currentStatistics(game, `wrongAnswer`);

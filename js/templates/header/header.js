@@ -1,5 +1,3 @@
-
-
 const headerBackTemplate = `
 <div class="header__back">
 <button class="back">
