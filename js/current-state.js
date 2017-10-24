@@ -1,5 +1,4 @@
 import levels from './data/data-levels.js';
-import answers from './data/data-answers.js';
 
 const currentStatistics = (game, timeAnswer) => {
   const currentLevel = game.currentLevel;
@@ -26,39 +25,41 @@ const conditionCurrentStateFalse = (game) => {
   game.lives--;
 };
 
-
-const getCurrentStateGame1 = (game) => {
+const getCurrentStateAllGame = (game) => {
   const currentLevel = game.currentLevel;
+  const trueLevelAnswers = levels[currentLevel].question.answers;
+  let currentUserAnswers = game.userAnswers[currentLevel];
 
-  for (let i = 0; levels[currentLevel].question.answers.length > i; i++) {
-    const gameAnswersKeys = Object.keys(game.userAnswers[currentLevel]).sort();
+  const newTrueAnswers = {};
 
-    let currentAnswerKey = gameAnswersKeys[i];
+  trueLevelAnswers.forEach((answer, i) => {
+    newTrueAnswers[`${i + 1}src`] = answer.url;
+    newTrueAnswers[`${i + 1}true`] = answer.true;
+  });
 
-    const currentUserAnswerLevel = game.userAnswers[currentLevel];
+  const keysNewTrueAnswers = Object.keys(newTrueAnswers).sort();
+  const keysCurrentUserAnswers = Object.keys(currentUserAnswers).sort();
 
-    if (currentUserAnswerLevel[currentAnswerKey] === levels[currentLevel].question.answers[i].true) {
-      conditionCurrentStateTrue(game);
-    } else {
-      conditionCurrentStateFalse(game);
-      break;
-    }
+  const trueAnswersArray = [];
+  const currentUserAnswersArray = [];
+
+  keysNewTrueAnswers.forEach((element) => {
+    trueAnswersArray.push(newTrueAnswers[element]);
+  });
+
+  keysCurrentUserAnswers.forEach((element) => {
+    currentUserAnswersArray.push(currentUserAnswers[element]);
+  });
+
+  const resultAnswers = currentUserAnswersArray.filter((element, i) => {
+    return element !== trueAnswersArray[i];
+  });
+
+  if (resultAnswers.length === 0) {
+    conditionCurrentStateTrue(game);
+  } else {
+    conditionCurrentStateFalse(game);
   }
 };
 
-const getCurrentStateGame3 = (game, src) => {
-  const answersKeys = Object.keys(answers);
-
-  for (let answer of answersKeys) {
-    if (answers[answer].url === src) {
-      if (answers[answer].true === `paint`) {
-        conditionCurrentStateTrue(game);
-      } else {
-        conditionCurrentStateFalse(game);
-        break;
-      }
-    }
-  }
-};
-
-export {getCurrentStateGame1, getCurrentStateGame3, getCurrentLevel};
+export {getCurrentLevel, getCurrentStateAllGame};

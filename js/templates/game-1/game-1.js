@@ -1,5 +1,5 @@
 import {game2} from '../game-2/game-2.js';
-import {getCurrentStateGame1} from '../../current-state.js';
+import {getCurrentStateAllGame} from '../../current-state.js';
 import Game1View from './game-1-view.js';
 import {showStatsScreen, showGameScreen, showBackScreen, initGameLevel} from '../game-utils.js';
 
@@ -9,10 +9,15 @@ const game1 = (game) => {
   initGameLevel(game);
 
   viewGame1.nextView = (evt, answerIndex, value) => {
-    game.userAnswers[game.currentLevel][`answer${answerIndex}`] = value;
-    const allAnswered = [1, 2].every((aIndex) => game.userAnswers[game.currentLevel][`answer${aIndex}`]);
+
+    const imageSrc = evt.currentTarget.children[0].getAttribute(`src`);
+
+    game.userAnswers[game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
+    game.userAnswers[game.currentLevel][`answer${answerIndex}Type`] = value;
+
+    const allAnswered = [1, 2].every((aIndex) => game.userAnswers[game.currentLevel][`answer${aIndex}Type`]);
     if (allAnswered) {
-      getCurrentStateGame1(game);
+      getCurrentStateAllGame(game);
 
       if (game.currentLevel === game.levels[game.levels.length - 1] || game.lives < 0) {
         showStatsScreen(game);
