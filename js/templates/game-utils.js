@@ -27,4 +27,26 @@ const initGameLevel = (game) => {
   game.userAnswers[game.currentLevel] = {};
 };
 
-export {showStatsScreen, showGameScreen, showBackScreen, initGameLevel};
+const bodyTemplate = (thisStatistics, gameOption, question, bodyType) => {
+  const content = question.answers.map((answer, i) => {
+    return gameOption(answer, i + 1);
+  }).join(``);
+
+  const statistics = Object.keys(thisStatistics).map((element) => {
+    return `<li class="stats__result stats__result--` + thisStatistics[element] + `"></li>`;
+  }).join(``);
+
+  return `<div class="game">
+<p class="game__task">${question.text}</p>
+<form class="game__content ${bodyType}">
+  ${content}
+</form>
+<div class="stats">
+  <ul class="stats">
+    ${statistics}
+  </ul>
+</div>
+</div>`;
+};
+
+export {showStatsScreen, showGameScreen, showBackScreen, initGameLevel, bodyTemplate};
