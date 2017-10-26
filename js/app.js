@@ -1,8 +1,13 @@
-import {IntroScreen} from './templates/intro/intro.js';
+import {introScreen} from './templates/intro/intro.js';
+import showWindow from './show-window.js';
 
 class App {
-  showIntroScreen() {
-    IntroScreen.init();
+  static showIntroScreen() {
+    introScreen.init();
+  }
+
+  static nextView(template) {
+    showWindow(template);
   }
 }
 

@@ -14,7 +14,7 @@ const showStatsScreen = (game) => {
 const showGameScreen = (game, gameFunc) => {
   game.timer.stop();
   game.timer = new Timer(30);
-  showWindow(gameFunc(game));
+  return gameFunc;
 };
 
 const showBackScreen = (game) => {

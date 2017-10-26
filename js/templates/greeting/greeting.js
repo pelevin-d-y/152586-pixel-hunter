@@ -1,20 +1,21 @@
 import showWindow from '../../show-window.js';
-import {rules} from '../rules/rules.js';
-import {initialState, startGame} from '../../data/data.js';
-import levels from '../../data/data-levels.js';
+import {rules, rulesScreen} from '../rules/rules.js';
 import GreetingView from './view-greeting.js';
 
-const game = startGame(initialState);
-const keysLevels = Object.keys(levels);
+class GreetingScreen {
+  constructor() {
+    this.view = new GreetingView();
+  }
 
-for (let key of keysLevels) {
-  game.statistics[key] = `unknown`;
+  init() {
+    showWindow(this.view);
+
+    this.view.nextView = () => {
+      rulesScreen.init();
+    };
+  }
 }
 
-const greeting = new GreetingView();
+const greetingScreen = new GreetingScreen();
 
-greeting.nextView = () => {
-  showWindow(rules(game));
-};
-
-export {greeting};
+export {greeting, greetingScreen};

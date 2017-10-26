@@ -1,22 +1,21 @@
 import showWindow from '../../show-window.js';
-import {greeting} from '../greeting/greeting.js';
+import {greeting, greetingScreen} from '../greeting/greeting.js';
 import IntroView from './intro-view.js';
 
 class IntroScreen {
   constructor() {
     this.view = new IntroView();
   }
+
   init() {
     showWindow(this.view);
+
+    this.view.nextView = () => {
+      greetingScreen.init();
+    };
   }
 }
 
-const intro = new IntroView();
-intro.nextView = () => {
-  showWindow(greeting);
-};
+const introScreen = new IntroScreen();
 
-const introTemplate = 0;
-const showGreetingTemplate = 0;
-
-export {introTemplate, showGreetingTemplate, intro, IntroScreen};
+export {intro, introScreen};
