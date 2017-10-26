@@ -8,10 +8,7 @@ const game1 = (game) => {
 
   initGameLevel(game);
 
-  viewGame1.nextView = (evt, answerIndex, value) => {
-
-    const imageSrc = evt.currentTarget.children[0].getAttribute(`src`);
-
+  viewGame1.nextView = (evt, answerIndex, imageSrc, value) => {
     game.userAnswers[game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
     game.userAnswers[game.currentLevel][`answer${answerIndex}Type`] = value;
 

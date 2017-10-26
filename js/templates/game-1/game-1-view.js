@@ -36,7 +36,8 @@ class Game1View extends AbstractView {
 
     images.forEach((element) => {
       element.addEventListener(`change`, (evt) => {
-        this.nextView(evt, evt.target.dataset.answerIndex, evt.target.value);
+        const imageSrc = evt.currentTarget.children[0].getAttribute(`src`);
+        this.nextView(evt, evt.target.dataset.answerIndex, imageSrc, evt.target.value);
       });
     });
   }

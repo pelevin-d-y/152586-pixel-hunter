@@ -34,43 +34,19 @@ const statsVictory = (game) => {
   }).join(``);
 
   const quantitySlowAnswers = () => {
-    return game.answerPoints.filter((element) => {
-      if (element.speed === `slow`) {
-        return true;
-      } else {
-        return false;
-      }
-    }).length;
+    return game.answerPoints.filter((element) => (element.speed === `slow`)).length;
   };
 
   const quantityFastAnswers = () => {
-    return game.answerPoints.filter((element) => {
-      if (element.speed === `fast`) {
-        return true;
-      } else {
-        return false;
-      }
-    }).length;
+    return game.answerPoints.filter((element) => (element.speed === `fast`)).length;
   };
 
   const trueAnswers = (factor) => {
-    return game.answerPoints.filter((element) => {
-      if (element.answer === true) {
-        return true;
-      } else {
-        return false;
-      }
-    }).length * factor;
+    return game.answerPoints.filter((element) => (element.answer === true)).length * factor;
   };
 
   const points = (factor, speed) => {
-    return game.answerPoints.filter((element) => {
-      if (element.speed === speed) {
-        return true;
-      } else {
-        return false;
-      }
-    }).length * factor;
+    return game.answerPoints.filter((element) => (element.speed === speed)).length * factor;
   };
 
   return `<header class="header">

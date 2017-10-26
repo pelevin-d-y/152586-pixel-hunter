@@ -8,9 +8,7 @@ const game2 = (game) => {
 
   initGameLevel(game);
 
-  viewGame2.nextView = (evt, answerIndex, value) => {
-    const imageSrc = document.querySelector(`.game__option`).children[0].getAttribute(`src`);
-
+  viewGame2.nextView = (evt, answerIndex, imageSrc, value) => {
     game.userAnswers[game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
     game.userAnswers[game.currentLevel][`answer${answerIndex}Type`] = value;
 

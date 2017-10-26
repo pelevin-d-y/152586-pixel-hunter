@@ -28,7 +28,7 @@ class ViewGame3 extends AbstractView {
     controlElementsGame3.forEach((element) => {
       element.addEventListener(`click`, (evt) => {
         const imageSrc = evt.target.children[0].getAttribute(`src`);
-        this.nextView(evt, ``, imageSrc);
+        this.nextView(evt, ``, imageSrc, `paint`);
       });
     });
   }

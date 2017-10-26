@@ -36,7 +36,8 @@ class ViewGame2 extends AbstractView {
 
     controlElementsGame2.forEach((element) => {
       element.addEventListener(`change`, (evt) => {
-        this.nextView(evt, ``, evt.target.value);
+        const imageSrc = this.element.querySelector(`.game__option`).children[0].getAttribute(`src`);
+        this.nextView(evt, ``, imageSrc, evt.target.value);
       });
     });
   }

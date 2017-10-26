@@ -8,9 +8,9 @@ const game3 = (game) => {
 
   initGameLevel(game);
 
-  viewGame3.nextView = (evt, answerIndex, value) => {
-    game.userAnswers[game.currentLevel][`answer${answerIndex}Src`] = value;
-    game.userAnswers[game.currentLevel][`answer${answerIndex}Type`] = `paint`;
+  viewGame3.nextView = (evt, answerIndex, imageSrc, value) => {
+    game.userAnswers[game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
+    game.userAnswers[game.currentLevel][`answer${answerIndex}Type`] = value;
 
     getCurrentStateAllGame(game);
 
