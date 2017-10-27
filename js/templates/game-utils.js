@@ -18,7 +18,9 @@ const showGameScreen = (game, gameFunc) => {
 };
 
 const showBackScreen = (game) => {
-  game.timer.stop();
+  if (game) {
+    game.timer.stop();
+  }
   new IntroScreen().init();
 };
 

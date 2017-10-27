@@ -1,21 +1,20 @@
 import showWindow from '../../show-window.js';
-import {rules, rulesScreen} from '../rules/rules.js';
 import GreetingView from './view-greeting.js';
+import App from '../../app.js';
 
 class GreetingScreen {
-  constructor() {
-    this.view = new GreetingView();
+  constructor(game) {
+    this.view = new GreetingView(game);
+    this.game = game;
   }
 
   init() {
     showWindow(this.view);
 
     this.view.nextView = () => {
-      rulesScreen.init();
+      App.showRulesScreen(this.game);
     };
   }
 }
 
-const greetingScreen = new GreetingScreen();
-
-export {greeting, GreetingScreen};
+export {GreetingScreen};

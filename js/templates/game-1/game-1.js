@@ -2,12 +2,16 @@ import {Game2Screen} from '../game-2/game-2.js';
 import showWindow from '../../show-window.js';
 import {getCurrentStateAllGame} from '../../current-state.js';
 import Game1View from './game-1-view.js';
-import {showStatsScreen, showGameScreen, showBackScreen, initGameLevel} from '../game-utils.js';
+import Timer from '../../timer.js';
+import App from '../../app.js';
+import {showGameScreen, initGameLevel} from '../game-utils.js';
 
 class Game1Screen {
   constructor(game) {
     this.view = new Game1View(game);
     this.game = game;
+    this.game.timer = new Timer(30);
+
   }
 
   init() {
@@ -24,15 +28,15 @@ class Game1Screen {
         getCurrentStateAllGame(this.game);
 
         if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1] || this.game.lives < 0) {
-          showStatsScreen(this.game);
+          App.showStatsScreen(this.game);
           return;
         }
 
-        showGameScreen(this.game, new Game2Screen(this.game).init());
+        showGameScreen(this.game, App.showGame2Screen(this.game));
       }
     };
 
-    this.view.backView = () => showBackScreen(this.game);
+    this.view.backView = () => App.showIntroScreen(this.game);
   }
 }
 

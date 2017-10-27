@@ -1,8 +1,8 @@
 import {getCurrentStateAllGame} from '../../current-state.js';
 import showWindow from '../../show-window.js';
 import ViewGame3 from './game-3-view.js';
-import {showStatsScreen, showGameScreen, showBackScreen, initGameLevel} from '../game-utils.js';
-import {Game1Screen} from '../game-1/game-1.js';
+import {showGameScreen, initGameLevel} from '../game-utils.js';
+import App from '../../app.js';
 
 class Game3Screen {
   constructor(game) {
@@ -22,14 +22,14 @@ class Game3Screen {
       getCurrentStateAllGame(this.game);
 
       if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1] || this.game.lives < 0) {
-        showStatsScreen(this.game);
+        App.showStatsScreen(this.game);
         return;
       }
 
-      showGameScreen(this.game, new Game1Screen(this.game).init());
+      showGameScreen(this.game, App.showGame1Screen(this.game));
     };
 
-    this.view.backView = () => showBackScreen(this.game);
+    this.view.backView = () => App.showIntroScreen(this.game);
   }
 }
 
