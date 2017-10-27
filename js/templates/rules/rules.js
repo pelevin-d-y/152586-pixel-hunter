@@ -1,13 +1,12 @@
 import showWindow from '../../show-window.js';
 import RulesView from './rules-view.js';
-import {intro, introScreen} from '../intro/intro.js';
-import {game1, Game1Screen} from '../game-1/game-1.js';
+import {Game1Screen} from '../game-1/game-1.js';
 import Timer from '../../timer.js';
-import {initialState, startGame} from '../../data/data.js';
+import {initialState, StartGame} from '../../data/data.js';
 import levels from '../../data/data-levels.js';
+import {showBackScreen} from '../game-utils.js';
 
-
-const game = startGame(initialState);
+const game = new StartGame(initialState);
 const keysLevels = Object.keys(levels);
 
 for (let key of keysLevels) {
@@ -23,29 +22,14 @@ class RulesScreen {
     showWindow(this.view);
 
     this.view.nextView = () => {
+      game.timer = new Timer(30);
       new Game1Screen(game).init();
     };
 
-    this.view.backView = () => {
-      introScreen.init();
-    };
+    this.view.backView = () => showBackScreen(this.game);
   }
 }
 
 const rulesScreen = new RulesScreen();
 
-// const rules = (game) => {
-//   const rulesView = new RulesView(game);
-
-//   rulesView.nextView = () => {
-//     game.timer = new Timer(30);
-//     showWindow(game1(game));
-//   };
-
-//   rulesView.backView = () => {
-//     showWindow(intro);
-//   };
-//   return rulesView;
-// };
-
-export {rules, rulesScreen};
+export {rulesScreen};

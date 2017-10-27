@@ -1,6 +1,8 @@
 import showWindow from '../../show-window.js';
-import {greeting, greetingScreen} from '../greeting/greeting.js';
+import {GreetingScreen} from '../greeting/greeting.js';
 import IntroView from './intro-view.js';
+import {initialState, StartGame} from '../../data/data.js';
+import levels from '../../data/data-levels.js';
 
 class IntroScreen {
   constructor() {
@@ -11,11 +13,9 @@ class IntroScreen {
     showWindow(this.view);
 
     this.view.nextView = () => {
-      greetingScreen.init();
+      new GreetingScreen().init();
     };
   }
 }
 
-const introScreen = new IntroScreen();
-
-export {intro, introScreen};
+export {IntroScreen};

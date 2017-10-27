@@ -18,4 +18,4 @@ class GreetingScreen {
 
 const greetingScreen = new GreetingScreen();
 
-export {greeting, greetingScreen};
+export {greeting, GreetingScreen};

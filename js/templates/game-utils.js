@@ -2,7 +2,7 @@ import answersPoint from './stats/stats-answers.js';
 import showWindow from './../show-window.js';
 import {stats} from './stats/stats.js';
 import Timer from '../timer.js';
-import {intro} from './intro/intro.js';
+import {IntroScreen} from './intro/intro.js';
 import {getCurrentLevel} from '../current-state.js';
 
 const showStatsScreen = (game) => {
@@ -19,7 +19,7 @@ const showGameScreen = (game, gameFunc) => {
 
 const showBackScreen = (game) => {
   game.timer.stop();
-  showWindow(intro);
+  new IntroScreen().init();
 };
 
 const initGameLevel = (game) => {
