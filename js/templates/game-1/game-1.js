@@ -1,4 +1,3 @@
-import {Game2Screen} from '../game-2/game-2.js';
 import showWindow from '../../show-window.js';
 import {getCurrentStateAllGame} from '../../current-state.js';
 import Game1View from './game-1-view.js';
