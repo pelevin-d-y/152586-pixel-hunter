@@ -9,27 +9,48 @@ const initialState = {
 
 let currentState = initialState;
 
-function startGame(state) {
-  return {
-    name: `pixel hunter`,
-    attempt: 1,
-    gameQuestions: questions,
-    lives: state.lives,
-    timer: ``,
-    time: initialState.time,
-    numberLevels: initialState.numberLevels,
-    levels: Object.keys(levels),
-    currentLevel: ``,
-    userAnswers: {},
-    answerPoints: [],
-    statistics: {},
-    timeAnswer: {
-      slowAnswer: `slow`,
-      fastAnswer: `fast`,
-      normalAnswer: `correct`,
-      wrongAnswer: `wrong`
-    }
+function StartGame(state) {
+  this.name = `pixel hunter`;
+  this.attempt = 1;
+  this.gameQuestions = questions;
+  this.lives = state.lives;
+  this.timer = ``;
+  this.time = initialState.time;
+  this.numberLevels = initialState.numberLevels;
+  this.levels = Object.keys(levels);
+  this.currentLevel = ``;
+  this.userAnswers = {};
+  this.answerPoints = [];
+  this.statistics = {};
+  this.timeAnswer = {
+    slowAnswer: `slow`,
+    fastAnswer: `fast`,
+    normalAnswer: `correct`,
+    wrongAnswer: `wrong`
   };
 }
 
-export {initialState, startGame, currentState};
+// function startGame(state) {
+//   return {
+//     name: `pixel hunter`,
+//     attempt: 1,
+//     gameQuestions: questions,
+//     lives: state.lives,
+//     timer: ``,
+//     time: initialState.time,
+//     numberLevels: initialState.numberLevels,
+//     levels: Object.keys(levels),
+//     currentLevel: ``,
+//     userAnswers: {},
+//     answerPoints: [],
+//     statistics: {},
+//     timeAnswer: {
+//       slowAnswer: `slow`,
+//       fastAnswer: `fast`,
+//       normalAnswer: `correct`,
+//       wrongAnswer: `wrong`
+//     }
+//   };
+// }
+
+export {initialState, StartGame, currentState};

@@ -1,21 +1,23 @@
 import showWindow from '../../show-window.js';
 import RulesView from './rules-view.js';
-import {intro} from '../intro/intro.js';
-import {game1} from '../game-1/game-1.js';
-import Timer from '../../timer.js';
+import App from '../../app.js';
+import {IntroScreen} from '../intro/intro.js';
 
-const rules = (game) => {
-  const rulesView = new RulesView(game);
+class RulesScreen {
+  constructor(game) {
+    this.view = new RulesView(game);
+    this.game = game;
+  }
 
-  rulesView.nextView = () => {
-    game.timer = new Timer(30);
-    showWindow(game1(game));
-  };
+  init() {
+    showWindow(this.view);
 
-  rulesView.backView = () => {
-    showWindow(intro);
-  };
-  return rulesView;
-};
+    this.view.nextView = () => {
+      App.showGame1Screen(this.game);
+    };
 
-export {rules};
+    this.view.backView = () => new IntroScreen().init();
+  }
+}
+
+export {RulesScreen};

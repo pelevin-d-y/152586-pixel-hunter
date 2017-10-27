@@ -1,30 +1,58 @@
-import {game1} from '../game-1/game-1.js';
 import {getCurrentStateAllGame} from '../../current-state.js';
+import showWindow from '../../show-window.js';
 import ViewGame3 from './game-3-view.js';
-import {showStatsScreen, showGameScreen, showBackScreen, initGameLevel} from '../game-utils.js';
+import {initGameLevel} from '../game-utils.js';
+import App from '../../app.js';
+import Timer from '../../timer.js';
 
-const game3 = (game) => {
-  const viewGame3 = new ViewGame3(game);
+class Game3Screen {
+  constructor(game) {
+    this.view = new ViewGame3(game);
+    this.game = game;
+    if (this.game.timer !== ``) {
+      this.game.timer.stop();
+    }
+    this.game.timer = new Timer(30);
+  }
 
-  initGameLevel(game);
+  init() {
+    showWindow(this.view);
 
-  viewGame3.nextView = (evt, answerIndex, imageSrc, value) => {
-    game.userAnswers[game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
-    game.userAnswers[game.currentLevel][`answer${answerIndex}Type`] = value;
+    initGameLevel(this.game);
 
-    getCurrentStateAllGame(game);
-
-    if (game.currentLevel === game.levels[game.levels.length - 1] || game.lives < 0) {
-      showStatsScreen(game);
-      return;
+    if (this.game.timer !== ``) {
+      this.game.timer.stop();
     }
 
-    showGameScreen(game, game1);
-  };
+    this.game.timer = new Timer(30, () => {
+      this.game.userAnswers[this.game.currentLevel][`answer1Src`] = `imageSrc`;
+      this.game.userAnswers[this.game.currentLevel][`answer2Type`] = `value`;
+      getCurrentStateAllGame(this.game);
 
-  viewGame3.backView = () => showBackScreen(game);
+      if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1] || this.game.lives < 0) {
+        App.showStatsScreen(this.game);
+        return;
+      }
 
-  return viewGame3;
-};
+      App.showGame1Screen(this.game);
+    });
 
-export {game3};
+    this.view.nextView = (evt, answerIndex, imageSrc, value) => {
+      this.game.userAnswers[this.game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
+      this.game.userAnswers[this.game.currentLevel][`answer${answerIndex}Type`] = value;
+
+      getCurrentStateAllGame(this.game);
+
+      if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1] || this.game.lives < 0) {
+        App.showStatsScreen(this.game);
+        return;
+      }
+
+      App.showGame1Screen(this.game);
+    };
+
+    this.view.backView = () => App.showIntroScreen(this.game);
+  }
+}
+
+export {Game3Screen};
