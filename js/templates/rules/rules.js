@@ -11,7 +11,6 @@ class RulesScreen {
 
   init() {
     showWindow(this.view);
-
     this.view.nextView = () => {
       App.showGame1Screen(this.game);
     };

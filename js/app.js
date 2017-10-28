@@ -15,17 +15,17 @@ const ControllerId = {
   statsScreen: `stats`
 };
 
-const saveState = (state) => {
-  return JSON.stringify(state);
-};
+// const saveState = (state) => {
+//   return JSON.stringify(state);
+// };
 
-const loadState = (dataString) => {
-  try {
-    return JSON.parse(dataString);
-  } catch (e) {
-    return () => console.log(`sad`); //initialGame;
-  }
-};
+// const loadState = (dataString) => {
+//   try {
+//     return JSON.parse(dataString);
+//   } catch (e) {
+//     return () => console.log(`sad`); //initialGame;
+//   }
+// };
 
 const routes = {
   [ControllerId.introScreen]: (state) => showBackScreen(state),
@@ -68,23 +68,38 @@ class App {
   }
 
   static showRulesScreen(game) {
-    new RulesScreen(game).init();
+    this.game = game;
+    location.hash = ControllerId.rulesScreen;
+
+    //new RulesScreen(game).init();
   }
 
   static showGame1Screen(game) {
-    new Game1Screen(game).init();
+    this.game = game;
+    location.hash = ControllerId.game1Screen;
+
+    //new Game1Screen(game).init();
   }
 
   static showGame2Screen(game) {
-    new Game2Screen(game).init();
+    this.game = game;
+    location.hash = ControllerId.game2Screen;
+
+    //new Game2Screen(game).init();
   }
 
   static showGame3Screen(game) {
-    new Game3Screen(game).init();
+    this.game = game;
+    location.hash = ControllerId.game3Screen;
+
+    //new Game3Screen(game).init();
   }
 
   static showStatsScreen(game) {
-    showStatsScreen(game);
+    this.game = game;
+    location.hash = ControllerId.statsScreen;
+
+    //showStatsScreen(game);
   }
 }
 

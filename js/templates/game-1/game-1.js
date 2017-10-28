@@ -12,6 +12,7 @@ class Game1Screen {
   }
 
   init() {
+
     initGameLevel(this.game);
 
     showWindow(this.view);
