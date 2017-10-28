@@ -3,8 +3,7 @@ import showWindow from './../show-window.js';
 import {stats} from './stats/stats.js';
 import {IntroScreen} from './intro/intro.js';
 import {getCurrentLevel} from '../current-state.js';
-import App from '../app.js';
-import {getCurrentStateAllGame} from '../current-state.js';
+
 
 const showStatsScreen = (game) => {
   game.timer.stop();
@@ -23,20 +22,6 @@ const initGameLevel = (game) => {
   game.currentLevel = getCurrentLevel(game);
   game.userAnswers[game.currentLevel] = {};
 };
-
-// const timerCallbackFunction = (game, screen) => {
-//   game.userAnswers[game.currentLevel][`answer1Src`] = `imageSrc`;
-//   game.userAnswers[game.currentLevel][`answer2Type`] = `value`;
-
-//   getCurrentStateAllGame(game);
-
-//   if (game.currentLevel === game.levels[game.levels.length - 1] || game.lives < 0) {
-//     App.showStatsScreen(game);
-//     return;
-//   }
-
-//   screen(game);
-// };
 
 const bodyTemplate = (thisStatistics, gameOption, question, bodyType) => {
   const content = question.answers.map((answer, i) => {
@@ -60,4 +45,4 @@ const bodyTemplate = (thisStatistics, gameOption, question, bodyType) => {
 </div>`;
 };
 
-export {showStatsScreen, showBackScreen, initGameLevel, bodyTemplate, timerCallbackFunction};
+export {showStatsScreen, showBackScreen, initGameLevel, bodyTemplate};
