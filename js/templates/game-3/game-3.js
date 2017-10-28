@@ -52,6 +52,10 @@ class Game3Screen {
     };
 
     this.view.backView = () => App.showIntroScreen(this.game);
+
+    this.game.timer.onTick = () => {
+      this.view.timerUpdate();
+    };
   }
 }
 

@@ -11,16 +11,8 @@ const Timer = function (time, callback) {
 
   this.timerRun = setInterval(() => {
     this.tick();
-    const timerElement = document.querySelector(`.game__timer`);
-    timerElement.innerHTML = this.counter;
 
-    if (this.counter <= 5) {
-      if (timerElement.hasAttribute(`hidden`)) {
-        timerElement.removeAttribute(`hidden`);
-      } else {
-        timerElement.setAttribute(`hidden`, true);
-      }
-    }
+    this.onTick();
 
     if (this.counter === 0) {
       this.stop();

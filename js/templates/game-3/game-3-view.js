@@ -31,6 +31,19 @@ class ViewGame3 extends AbstractView {
         this.nextView(evt, ``, imageSrc, `paint`);
       });
     });
+
+    const timerElement = this.element.querySelector(`.game__timer`);
+
+    this.timerUpdate = () => {
+      timerElement.innerHTML = this.game.timer.counter;
+      if (this.game.timer.counter <= 5) {
+        if (timerElement.hasAttribute(`hidden`)) {
+          timerElement.removeAttribute(`hidden`);
+        } else {
+          timerElement.setAttribute(`hidden`, true);
+        }
+      }
+    };
   }
   nextView() {
 

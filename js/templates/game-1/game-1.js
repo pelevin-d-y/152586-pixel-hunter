@@ -20,20 +20,6 @@ class Game1Screen {
       this.game.timer.stop();
     }
 
-    this.game.timer = new Timer(30, () => {
-      this.game.userAnswers[this.game.currentLevel][`answer1Src`] = `imageSrc`;
-      this.game.userAnswers[this.game.currentLevel][`answer2Type`] = `value`;
-
-      getCurrentStateAllGame(this.game);
-
-      if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1] || this.game.lives < 0) {
-        App.showStatsScreen(this.game);
-        return;
-      }
-
-      App.showGame2Screen(this.game);
-    });
-
     this.view.nextView = (evt, answerIndex, imageSrc, value) => {
       this.game.userAnswers[this.game.currentLevel][`answer${answerIndex}Src`] = imageSrc;
       this.game.userAnswers[this.game.currentLevel][`answer${answerIndex}Type`] = value;
@@ -52,6 +38,24 @@ class Game1Screen {
     };
 
     this.view.backView = () => App.showIntroScreen(this.game);
+
+    this.game.timer = new Timer(30, () => {
+      this.game.userAnswers[this.game.currentLevel][`answer1Src`] = `imageSrc`;
+      this.game.userAnswers[this.game.currentLevel][`answer2Type`] = `value`;
+
+      getCurrentStateAllGame(this.game);
+
+      if (this.game.currentLevel === this.game.levels[this.game.levels.length - 1] || this.game.lives < 0) {
+        App.showStatsScreen(this.game);
+        return;
+      }
+
+      App.showGame2Screen(this.game);
+    });
+
+    this.game.timer.onTick = () => {
+      this.view.timerUpdate();
+    };
   }
 }
 
