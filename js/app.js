@@ -4,6 +4,7 @@ import {Game1Screen} from './templates/game-1/game-1.js';
 import {Game2Screen} from './templates/game-2/game-2.js';
 import {Game3Screen} from './templates/game-3/game-3.js';
 import {showStatsScreen, showBackScreen} from './templates/game-utils.js';
+import {getCurrentLevel} from './current-state.js';
 
 const ControllerId = {
   introScreen: `intro`,
@@ -15,17 +16,16 @@ const ControllerId = {
   statsScreen: `stats`
 };
 
-// const saveState = (state) => {
-//   return JSON.stringify(state);
-// };
+const stats = {};
 
-// const loadState = (dataString) => {
-//   try {
-//     return JSON.parse(dataString);
-//   } catch (e) {
-//     return () => console.log(`sad`); //initialGame;
-//   }
-// };
+const saveState = (state) => {
+  return JSON.stringify(state);
+};
+
+const loadState = (state) => {
+
+  console.log(JSON.parse(saveState(state)));
+};
 
 const routes = {
   [ControllerId.introScreen]: (state) => showBackScreen(state),
@@ -41,14 +41,14 @@ class App {
   static init() {
     const hashChangeHandler = () => {
       const hashValue = location.hash.replace(`#`, ``);
-      const [id, data] = hashValue.split(`?`);
-      this.changeHash(id, data);
+      const id = hashValue.split(`?`);
+      this.changeHash(id);
     };
     window.onhashchange = hashChangeHandler;
     hashChangeHandler();
   }
 
-  static changeHash(id, data) {
+  static changeHash(id) {
     const controller = routes[id];
     if (controller) {
       controller(this.game);
@@ -58,48 +58,50 @@ class App {
   static showIntroScreen(game) {
     this.game = game;
     location.hash = ControllerId.introScreen;
-    //showBackScreen(game);
   }
 
   static showGreetingScreen(game) {
     this.game = game;
     location.hash = ControllerId.greetingScreen;
-    //new GreetingScreen(game).init();
   }
 
   static showRulesScreen(game) {
     this.game = game;
     location.hash = ControllerId.rulesScreen;
-
-    //new RulesScreen(game).init();
   }
 
   static showGame1Screen(game) {
     this.game = game;
-    location.hash = ControllerId.game1Screen;
+    stats.lives = this.game.lives;
+    stats.level = getCurrentLevel(this.game);
 
-    //new Game1Screen(game).init();
+    location.hash = `game?${saveState(stats)}`;
+    new Game1Screen(game).init();
   }
 
   static showGame2Screen(game) {
     this.game = game;
-    location.hash = ControllerId.game2Screen;
+    stats.lives = this.game.lives;
+    stats.level = getCurrentLevel(this.game);
 
-    //new Game2Screen(game).init();
+    location.hash = `game?${saveState(stats)}`;
+    this.game = game;
+    new Game2Screen(game).init();
   }
 
   static showGame3Screen(game) {
     this.game = game;
-    location.hash = ControllerId.game3Screen;
+    stats.lives = this.game.lives;
+    stats.level = getCurrentLevel(this.game);
 
-    //new Game3Screen(game).init();
+    location.hash = `game?${saveState(stats)}`;
+    this.game = game;
+    new Game3Screen(game).init();
   }
 
   static showStatsScreen(game) {
     this.game = game;
     location.hash = ControllerId.statsScreen;
-
-    //showStatsScreen(game);
   }
 }
 

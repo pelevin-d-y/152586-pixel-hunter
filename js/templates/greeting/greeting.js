@@ -3,16 +3,15 @@ import GreetingView from './view-greeting.js';
 import App from '../../app.js';
 
 class GreetingScreen {
-  constructor(game) {
-    this.view = new GreetingView(game);
-    this.game = game;
+  constructor() {
+    this.view = new GreetingView();
   }
 
   init() {
     showWindow(this.view);
 
     this.view.nextView = () => {
-      App.showRulesScreen(this.game);
+      App.showRulesScreen();
     };
   }
 }
