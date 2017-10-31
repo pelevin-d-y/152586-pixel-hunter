@@ -24,7 +24,7 @@ const saveState = (state) => {
 
 const loadState = (state) => {
 
-  console.log(JSON.parse(saveState(state)));
+  //console.log(JSON.parse(saveState(state)));
 };
 
 const routes = {
@@ -41,7 +41,7 @@ class App {
   static init() {
     const hashChangeHandler = () => {
       const hashValue = location.hash.replace(`#`, ``);
-      const id = hashValue.split(`?`);
+      const [id, data] = hashValue.split(`?`);
       this.changeHash(id);
     };
     window.onhashchange = hashChangeHandler;
@@ -74,29 +74,26 @@ class App {
     this.game = game;
     stats.lives = this.game.lives;
     stats.level = getCurrentLevel(this.game);
-
-    location.hash = `game?${saveState(stats)}`;
-    new Game1Screen(game).init();
+    location.hash = `${ControllerId.game1Screen}?${saveState(stats)}`;
+    //new Game1Screen(this.game).init();
   }
 
   static showGame2Screen(game) {
     this.game = game;
     stats.lives = this.game.lives;
     stats.level = getCurrentLevel(this.game);
+    location.hash = `${ControllerId.game2Screen}?${saveState(stats)}`;
 
-    location.hash = `game?${saveState(stats)}`;
-    this.game = game;
-    new Game2Screen(game).init();
+    //new Game2Screen(this.game).init();
   }
 
   static showGame3Screen(game) {
     this.game = game;
     stats.lives = this.game.lives;
     stats.level = getCurrentLevel(this.game);
+    location.hash = `${ControllerId.game3Screen}?${saveState(stats)}`;
 
-    location.hash = `game?${saveState(stats)}`;
-    this.game = game;
-    new Game3Screen(game).init();
+    //new Game3Screen(this.game).init();
   }
 
   static showStatsScreen(game) {

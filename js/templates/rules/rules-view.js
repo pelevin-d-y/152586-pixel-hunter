@@ -47,7 +47,7 @@ class RulesView extends AbstractView {
     const backButton = this.element.querySelector(`.back`);
 
     controlElementRules.addEventListener(`click`, () => {
-      this.nextView();
+      this.nextView(this.game);
     });
 
     backButton.addEventListener(`click`, () => {
