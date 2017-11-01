@@ -46,7 +46,8 @@ class RulesView extends AbstractView {
     const inputGame1 = this.element.querySelector(`.rules__input`);
     const backButton = this.element.querySelector(`.back`);
 
-    controlElementRules.addEventListener(`click`, () => {
+    controlElementRules.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
       this.nextView(this.game);
     });
 
@@ -54,7 +55,8 @@ class RulesView extends AbstractView {
       this.backView();
     });
 
-    inputGame1.addEventListener(`input`, () => {
+    inputGame1.addEventListener(`input`, (evt) => {
+      evt.preventDefault();
       if (inputGame1.value) {
         controlElementRules.removeAttribute(`disabled`);
       }

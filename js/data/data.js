@@ -30,27 +30,4 @@ function StartGame(state) {
   };
 }
 
-// function startGame(state) {
-//   return {
-//     name: `pixel hunter`,
-//     attempt: 1,
-//     gameQuestions: questions,
-//     lives: state.lives,
-//     timer: ``,
-//     time: initialState.time,
-//     numberLevels: initialState.numberLevels,
-//     levels: Object.keys(levels),
-//     currentLevel: ``,
-//     userAnswers: {},
-//     answerPoints: [],
-//     statistics: {},
-//     timeAnswer: {
-//       slowAnswer: `slow`,
-//       fastAnswer: `fast`,
-//       normalAnswer: `correct`,
-//       wrongAnswer: `wrong`
-//     }
-//   };
-// }
-
 export {initialState, StartGame, currentState};

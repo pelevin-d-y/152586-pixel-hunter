@@ -12,7 +12,7 @@ const showStatsScreen = (game) => {
 };
 
 const showBackScreen = (game) => {
-  if (game) {
+  if (game.timer) {
     game.timer.stop();
   }
   new IntroScreen().init();

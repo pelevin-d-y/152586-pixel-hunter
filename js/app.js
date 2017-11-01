@@ -5,6 +5,7 @@ import {Game2Screen} from './templates/game-2/game-2.js';
 import {Game3Screen} from './templates/game-3/game-3.js';
 import {showStatsScreen, showBackScreen} from './templates/game-utils.js';
 import {getCurrentLevel} from './current-state.js';
+import {initialState, StartGame} from './data/data.js';
 
 const ControllerId = {
   introScreen: `intro`,
@@ -23,8 +24,7 @@ const saveState = (state) => {
 };
 
 const loadState = (state) => {
-
-  //console.log(JSON.parse(saveState(state)));
+  return JSON.parse(state);
 };
 
 const routes = {
@@ -42,14 +42,28 @@ class App {
     const hashChangeHandler = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
-      this.changeHash(id);
+      this.changeHash(id, data);
     };
     window.onhashchange = hashChangeHandler;
     hashChangeHandler();
   }
 
-  static changeHash(id) {
+  static changeHash(id, data) {
     const controller = routes[id];
+    if (!this.game) {
+      this.game = new StartGame(initialState);
+    }
+    console.log(this.game.currentLevel);
+    console.log(this.game.statistics);
+
+    if (data) {
+      loadState(data);
+      this.game.lives = loadState(data).lives;
+      this.game.time = loadState(data).time;
+      this.game.level = loadState(data).level;
+      this.game.statistics = loadState(data).statistics;
+      this.game.currentLevel = loadState(data).currentLevel;
+    }
     if (controller) {
       controller(this.game);
     }
@@ -74,6 +88,9 @@ class App {
     this.game = game;
     stats.lives = this.game.lives;
     stats.level = getCurrentLevel(this.game);
+    stats.time = this.game.time;
+    stats.statistics = this.game.statistics;
+    stats.currentLevel = this.game.currentLevel;
     location.hash = `${ControllerId.game1Screen}?${saveState(stats)}`;
     //new Game1Screen(this.game).init();
   }
@@ -82,6 +99,9 @@ class App {
     this.game = game;
     stats.lives = this.game.lives;
     stats.level = getCurrentLevel(this.game);
+    stats.time = this.game.time;
+    stats.statistics = this.game.statistics;
+    stats.currentLevel = this.game.currentLevel;
     location.hash = `${ControllerId.game2Screen}?${saveState(stats)}`;
 
     //new Game2Screen(this.game).init();
@@ -91,6 +111,9 @@ class App {
     this.game = game;
     stats.lives = this.game.lives;
     stats.level = getCurrentLevel(this.game);
+    stats.time = this.game.time;
+    stats.statistics = this.game.statistics;
+    stats.currentLevel = this.game.currentLevel;
     location.hash = `${ControllerId.game3Screen}?${saveState(stats)}`;
 
     //new Game3Screen(this.game).init();
